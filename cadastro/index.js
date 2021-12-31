@@ -33,7 +33,7 @@ function Admin({ navigation,route }) {
   const [cidadet,setCidadet]=React.useState('City');
   const [senhat,Setsenhat]=React.useState('PassWord');
   const [countryt,setCountryt]=React.useState('Select Your country');
-  const [usertype,setUserType]=React.useState(1)
+  const [usertype,setUserType]=React.useState(route.params.usertype)
 
 
   //Object to pass params to SELECT object
@@ -279,7 +279,7 @@ function Admin({ navigation,route }) {
             {/*set loading from Swal*/}
             {Swal.showLoading()}
 
-            var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/indexfotos.php';
+            var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/';
             var headers = {
               'Accept': 'application/json',
               "Content-Type": "multipart/form-data",

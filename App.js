@@ -14,6 +14,8 @@ import cadastroProdutos from './CadastroProdutos';
 import { FontAwesome5 } from '@expo/vector-icons';
 import Produtos from './Produtos';
 import ProdutosEditar from './ProdutosEditar';
+import DashBoradUser from './DashBoardUser';
+import PedirProduto from './PedirProduto';
 
 function HomeScreen({ navigation,route }) {
   disableBrowserBackButton();
@@ -164,7 +166,13 @@ var headers={
  }).then((response)=>response.json())
    .then((response)=>{
    if(response.statusCode==200){
-   navigation.replace('DashBoard',{response})
+    if(response.usertype==1){
+    navigation.replace('DashBoard',{response})
+    }else{
+    navigation.replace('DashBoard-User',{response})
+
+    } 
+  
 
     }else{
 
@@ -262,8 +270,11 @@ function App() {
    }}
 />
 <Stack.Screen name="Editing" component={ProdutosEditar} />
-    </Stack.Navigator>
-    </NavigationContainer>
+<Stack.Screen name='DashBoard-User' component={DashBoradUser } />
+<Stack.Screen name="solicitation" component={PedirProduto} />
+
+</Stack.Navigator>
+</NavigationContainer>
   );
 }
 

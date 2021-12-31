@@ -23,13 +23,13 @@ fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?language=${language}`
 .finally(() => setLoading(false));
 if(data[0]){
 if(language=='portugues'){
-  setDonate(data[0].donate)
-  setReceive(data[0].receive)
-  setLanguage('english')
+setDonate(data[0].donate)
+setReceive(data[0].receive)
+setLanguage('english')
 }else{
-  setDonate('Donate')
-  setReceive('Receive')
-  setLanguage('portugues')
+setDonate('Donate')
+setReceive('Receive')
+setLanguage('portugues')
 
 }  
 

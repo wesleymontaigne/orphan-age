@@ -32,7 +32,8 @@ function Admin({ navigation,route }) {
   const [usertype,setUserType]=React.useState(route.params.response.usertype)
   const [iduser,setIdUser]=React.useState(route.params.response.userid);
   const [sessionid,setSesstionId] =React.useState(route.params.response.sessionid)
-  console.log(route.params.response.sessionid)
+  const [country,setCountry] = React.useState(route.params.response.country);
+
 
   //Object to pass params to SELECT object
   const placeholder = {
@@ -253,7 +254,8 @@ function Admin({ navigation,route }) {
               usertype:usertype,
               requesition:'postItem',
               iduser:iduser,
-              sessionid:sessionid    
+              sessionid:sessionid,
+              country:country    
 
             };
 

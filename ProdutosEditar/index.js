@@ -33,7 +33,7 @@ function Editing({ navigation,route }) {
   const [iduser,setIdUser]=React.useState(route.params.response.userid);
   const [sessionid,setSesstionId] =React.useState(route.params.response.sessionid)
   const [productId,setProductId]=React.useState(route.params.item.id)
-  console.log(route.params)
+ 
 
   //Object to pass params to SELECT object
   const placeholder = {
