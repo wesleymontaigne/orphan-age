@@ -16,8 +16,14 @@ import Produtos from './Produtos';
 import ProdutosEditar from './ProdutosEditar';
 import DashBoradUser from './DashBoardUser';
 import PedirProduto from './PedirProduto';
+import helpers from './myFunctios';
+import {func1,func2,func3} from './myFunctios';
+
+
 
 function HomeScreen({ navigation,route }) {
+  helpers.helper1();
+  func1();
   disableBrowserBackButton();
   const [nome, setText] = React.useState('');
   const [senha,setSenha] = React.useState('');
@@ -62,7 +68,7 @@ function HomeScreen({ navigation,route }) {
 
  
   return (
-  <SafeAreaView style={{flex:1,alignItems:'center',backgroundColor:'black'}}>
+  <SafeAreaView style={{flex:1,alignItems:'center',backgroundColor:'dodgerblue'}}>
     <View style={{flexDirection:'row',alignContent:'flex-end'}}>
     <FontAwesome5 onPress={()=>{
     fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?language=${language}`,{method:'GET'})
@@ -141,13 +147,13 @@ if(!nome||!senha){
   
 }if(nome && senha){
 
-var validatinoApi ='https://wesleymontaigne.com/OOP/oprhanage/index.php';
+var validatinoApi ='https://wesleymontaigne.com/OOP/oprhanage/';
 var headers={
  'Accept':'application/json',
  'Content-Type':'application.json',
  'Access-Control-Allow-Methods': 'GET, POST',
  'crossDomain': 'true',
- 'Host': 'https://wesleymontaigne.com/OOP/index.php',
+ 'Host': 'https://wesleymontaigne.com/OOP/',
  'Origin': 'https://wesleymontaigne.com',
  
   };
@@ -272,7 +278,6 @@ function App() {
 <Stack.Screen name="Editing" component={ProdutosEditar} />
 <Stack.Screen name='DashBoard-User' component={DashBoradUser } />
 <Stack.Screen name="solicitation" component={PedirProduto} />
-
 </Stack.Navigator>
 </NavigationContainer>
   );

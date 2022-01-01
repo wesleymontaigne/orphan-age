@@ -7,7 +7,7 @@ import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
 
 
-function DashBoardUser({ navigation,route }){
+function messagens({ navigation,route }){
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const [isLoading, setLoading] = useState(true);
@@ -150,4 +150,4 @@ const styles = StyleSheet.create({
         textShadowRadius: 25,
         },
   });
-export default DashBoardUser;
+export default messagens;

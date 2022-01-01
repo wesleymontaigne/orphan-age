@@ -72,7 +72,7 @@ function Admin({ navigation,route }) {
 
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:'black',alignItems:'center',maxHeight:windowHeight}}>
+    <SafeAreaView style={{flex:1,backgroundColor:'dodgerblue',alignItems:'center',maxHeight:windowHeight}}>
      <FontAwesome5 onPress={()=>{
       
     

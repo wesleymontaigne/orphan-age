@@ -73,8 +73,7 @@ function Editing({ navigation,route }) {
   return (
     <SafeAreaView style={{flex:1,backgroundColor:'dodgerblue',alignItems:'center'}}>
      <FontAwesome5 onPress={()=>{
-      
-    
+          
       
      fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?language=${language}&page=${page}`,{method:'GET'})
     .then((response) => response.json())

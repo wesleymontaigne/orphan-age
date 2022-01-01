@@ -43,7 +43,7 @@ getData();
  
 
   return (
-  <SafeAreaView style={{flex:1,backgroundColor:'black',alignItems:'center' }}>
+  <SafeAreaView style={{flex:1,backgroundColor:'dodgerblue',alignItems:'center' }}>
   <TouchableOpacity>
   <View style={{flexDirection:'row',alignContent:'flex-end'}}>
   <FontAwesome5 onPress={()=>{getData()}} name="language" size={30} color="white" style={{marginLeft:windowWidth-80}}/>
