@@ -18,6 +18,8 @@ import DashBoradUser from './DashBoardUser';
 import PedirProduto from './PedirProduto';
 import helpers from './myFunctios';
 import {func1,func2,func3} from './myFunctios';
+import myMenssages from './messager';
+import messageReadMessage from './messageReadMesessage'
 
 
 
@@ -278,6 +280,8 @@ function App() {
 <Stack.Screen name="Editing" component={ProdutosEditar} />
 <Stack.Screen name='DashBoard-User' component={DashBoradUser } />
 <Stack.Screen name="solicitation" component={PedirProduto} />
+<Stack.Screen name="Message" component={myMenssages} />
+<Stack.Screen name="chat" component={messageReadMessage} />
 </Stack.Navigator>
 </NavigationContainer>
   );
