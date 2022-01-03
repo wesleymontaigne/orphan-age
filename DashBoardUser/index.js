@@ -1,5 +1,3 @@
-//React Native FlatList Pagination to Load More Data dynamically – Infinite List
-//https://aboutreact.com/react-native-flatlist-pagination-to-load-more-data-dynamically-infinite-list/
 
 //import React in our code
 import React, {useEffect,useState,useRef} from 'react';
@@ -8,8 +6,12 @@ import React, {useEffect,useState,useRef} from 'react';
 import { Text, View ,StyleSheet ,TouchableOpacity, ImageBackground,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated, ScrollView} from 'react-native';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+
+
+
 
 const DashBoardUser = ({navigation,route}) => {
 
@@ -19,10 +21,10 @@ useEffect(()=>{
   Animated.timing(translateX,{toValue:0,duration:2000}).start();
   });
   
-  const [loading, setLoading] = useState(true);
-  const [dataSource, setDataSource] = useState([]);
-  const [offset, setOffset] = useState(1);
-  const windowWidth = Dimensions.get('window').width;
+const [loading, setLoading] = useState(true);
+const [dataSource, setDataSource] = useState([]);
+const [offset, setOffset] = useState(1);
+const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const [data, setData] = useState([]);
 const [foto,setFoto]=React.useState(route.params.response.image);
@@ -33,6 +35,17 @@ const image = { uri: 'https://wesleymontaigne.com/OOP/oprhanage/fotos/bg.png' };
 const [sessionId,setSesstionId]=React.useState(route.params.response.sessionid);
 const [response,setResponse]=React.useState(route.params)
 const [country, setCountry] =React.useState(route.params.response.country)
+const [state,setState]=React.useState(route.params.response.state)
+const [city,setCity]=React.useState(route.params.response.city)
+const [stateCitySearch,setStateCitySearch]=React.useState('Search By')
+console.log(stateCitySearch)
+
+
+
+//Object to pass params to SELECT object
+
+
+//Finish SELECT (PIKER)
 
   useEffect(() => getData(), []);
 
@@ -40,7 +53,7 @@ const [country, setCountry] =React.useState(route.params.response.country)
     console.log('getData');
     setLoading(true);
     //Service to get the data from the server to render
-    fetch('https://wesleymontaigne.com/OOP/index.php?exercise=all&offset=' + offset)
+    fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?id=${iduser}&dashboard=0&sessionid=${sessionId}&country=${country}&offset=${offset}`)
       //Sending the currect offset with get request
       .then((response) => response.json())
       .then((responseJson) => {
@@ -83,10 +96,10 @@ const [country, setCountry] =React.useState(route.params.response.country)
     return (
       // Flat List Item
 
-
+    
 
       <View style={{alignContent:'center',flex:1,alignItems:'center'}}>
-      <View style={{margin:7,backgroundColor:'white',width:'60%',height:200,borderRadius:25}}> 
+       {item.id?<View style={{margin:7,backgroundColor:'white',width:'60%',height:200,borderRadius:25}}> 
      <TouchableOpacity onPress={() => navigation.navigate('solicitation',{response:route.params.response,productId:item.id,Product:item})}>
      <View style={{flex:1}}>
      <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
@@ -114,7 +127,8 @@ const [country, setCountry] =React.useState(route.params.response.country)
      
     
      </TouchableOpacity>
-     </View> 
+     </View> :''}
+      
      </View>
 
      
@@ -144,10 +158,12 @@ const [country, setCountry] =React.useState(route.params.response.country)
     }} >
      <AntDesign name="message1" size={26} color="white" /><Text style={styles.text}> {route.params.response.numberOfMessages}</Text>
     
-    </TouchableOpacity>
-   
+    </TouchableOpacity> 
+    
+    {/*RADIO BUTTON*/}
    
     </View>
+
     </View>
     </View>
       </ImageBackground>
@@ -178,11 +194,11 @@ const [country, setCountry] =React.useState(route.params.response.country)
       <View style={styles.container}>
         <FlatList
         ListHeaderComponent={HeaderView}
-          data={dataSource}
-          keyExtractor={(item, index) => index.toString()}
-          enableEmptySections={true}
-          renderItem={ItemView}
-          ListFooterComponent={renderFooter}
+        data={dataSource}
+        keyExtractor={(item, index) => index.toString()}
+        enableEmptySections={true}
+        renderItem={ItemView}
+        ListFooterComponent={renderFooter}
         />
       </View>
       </ImageBackground>
@@ -222,6 +238,10 @@ const styles = StyleSheet.create({
     textShadowOffset: {width: -2, height: 2},
     textShadowRadius: 25,
     },
+    select:{
+    borderRadius:25,
+    color:'black'
+    }
 });
 
 export default DashBoardUser;
