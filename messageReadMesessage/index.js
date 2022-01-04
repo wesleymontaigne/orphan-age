@@ -25,8 +25,6 @@ const [productId,setProductid] =React.useState(route.params.Product.productid)
 const [donatorid,setDonatorId]=React.useState(route.params.Product.donatorid);
 const [message,setMessage]=React.useState();
 
-console.log(route.params)
-
 
 {/*Animations sets*/}
 const [listItems, setListItems] = useState(data);
@@ -121,7 +119,7 @@ useEffect(()=>{
 } 
  
  getPostMessages();
-
+console.log(data)
 
 
    
@@ -167,12 +165,12 @@ useEffect(()=>{
        
          </View>}
        renderItem={({ item,userid }) => (
-       <View style={{alignContent:'center',flex:1,alignItems:'center'}}>
-       <View style={item.userid==item.sender?styles.right:styles.left}> 
-      <TouchableOpacity onPress={() => navigation.navigate('chat',{response:route.params.response,productId:item.id,Product:item})}>
+      <View style={{alignContent:'center',flex:1,alignItems:'center'}}>
+      <View style={0==item.sender?styles.right:styles.left}> 
+      <TouchableOpacity onPress={() => navigation.navigate('chatssss',{response:route.params.response,productId:item.id,Product:item})}>
       <View style={{flex:1}}>
       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
-      <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.img}} />
+      <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={0==item.sender?{uri:foto}:{uri:item.picture}} />
       <Text>{item.message}</Text>
       </View>
       {/*footer*/}

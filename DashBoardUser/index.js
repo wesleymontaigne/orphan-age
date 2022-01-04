@@ -37,10 +37,6 @@ const [response,setResponse]=React.useState(route.params)
 const [country, setCountry] =React.useState(route.params.response.country)
 const [state,setState]=React.useState(route.params.response.state)
 const [city,setCity]=React.useState(route.params.response.city)
-const [stateCitySearch,setStateCitySearch]=React.useState('Search By')
-console.log(stateCitySearch)
-
-
 
 //Object to pass params to SELECT object
 
@@ -50,7 +46,7 @@ console.log(stateCitySearch)
   useEffect(() => getData(), []);
 
   const getData = () => {
-    console.log('getData');
+   
     setLoading(true);
     //Service to get the data from the server to render
     fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?id=${iduser}&dashboard=0&sessionid=${sessionId}&country=${country}&offset=${offset}`)
@@ -59,10 +55,10 @@ console.log(stateCitySearch)
       .then((responseJson) => {
         //Successful response from the API Call
         setOffset(offset + 1);
-        console.log(responseJson)
-        //After the response increasing the offset for the next API call.
+       
+       //After the response increasing the offset for the next API call.
         setDataSource([dataSource, ...responseJson]);
-        console.log('acrecentei coisa nova')
+       
         
         
         setLoading(false);
@@ -220,16 +216,17 @@ const styles = StyleSheet.create({
   },
   loadMoreBtn: {
     padding: 10,
-    backgroundColor: '#800000',
+    backgroundColor: '#FFE599',
     borderRadius: 4,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
   },
   btnText: {
-    color: 'white',
-    fontSize: 15,
+    color: 'dodgerblue',
+    fontSize: 20,
     textAlign: 'center',
+    fontWeight:'bold'
   },
   text: {
     color:'white',marginTop:5,fontSize: 20,

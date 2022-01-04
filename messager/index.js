@@ -20,7 +20,7 @@ const image = { uri: 'https://wesleymontaigne.com/OOP/oprhanage/fotos/bg.png' };
 const [sessionId,setSesstionId]=React.useState(route.params.response.sessionid);
 const [response,setResponse]=React.useState(route.params)
 const [country, setCountry] =React.useState(route.params.response.country)
-console.log(route)
+
 
 {/*Animations sets*/}
 const translateX = useRef(new Animated.Value(Dimensions.get("window").height)).current 
@@ -74,7 +74,7 @@ useEffect(()=>{
         borderBottomLeftRadius: 15,
         borderTopRightRadius: 15,
         borderTopLeftRadius: 15,}}> 
-      <TouchableOpacity onPress={() => navigation.navigate('chat',{response:route.params.response,productId:item.id,Product:item})}>
+      <TouchableOpacity onPress={() => navigation.replace('chat',{response:route.params.response,productId:item.id,Product:item})}>
       <View style={{flex:1}}>
       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
       <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.img}} />
