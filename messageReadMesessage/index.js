@@ -168,7 +168,7 @@ console.log(data)
          </View>}
        renderItem={({ item,userid }) => (
       <View style={{alignContent:'center',flex:1,alignItems:'center'}}>
-      <View style={0==item.sender?styles.right:styles.left}> 
+      {productId==item.productid?<View style={0==item.sender?styles.right:styles.left}> 
       <TouchableOpacity onPress={() => navigation.navigate('chatssss',{response:route.params.response,productId:item.id,Product:item})}>
       <View style={{flex:1}}>
       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
@@ -181,7 +181,7 @@ console.log(data)
       
      
       </TouchableOpacity>
-      </View> 
+      </View> :''}
       </View>
      
 
