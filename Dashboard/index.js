@@ -3,6 +3,7 @@ import { Text, View ,StyleSheet ,TouchableOpacity, ImageBackground,Image,Dimensi
 import Swal from 'sweetalert2';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
+import { AntDesign } from '@expo/vector-icons';
 
 
 function Logado({ navigation,route }){
@@ -49,7 +50,16 @@ useEffect(()=>{
     <Image style={{width:125,height:125,borderRadius:25}} source={{uri:foto}} />   
     <View style={{marginLeft:7,}}>
     <Text style={styles.text}>{route.params.response.nome}</Text> 
-    <Text style={styles.text}>Delivering: 0</Text>
+    
+     {/**/}
+     <TouchableOpacity style={{flexDirection:'row',marginLeft:7}} onPress={()=>{
+      navigation.navigate('Message',{response:route.params.response});
+    }} >
+     <AntDesign name="message1" size={26} color="white" /><Text style={styles.text}> {route.params.response.numberOfMessages}</Text>
+    
+    </TouchableOpacity> 
+
+
     <View style={{flexDirection:'row',alignContent:'space-around'}}>
    
     <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>{

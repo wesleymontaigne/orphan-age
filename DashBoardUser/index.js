@@ -156,8 +156,7 @@ const [city,setCity]=React.useState(route.params.response.city)
     
     </TouchableOpacity> 
     
-    {/*RADIO BUTTON*/}
-   
+     
     </View>
 
     </View>

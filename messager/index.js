@@ -20,7 +20,7 @@ const image = { uri: 'https://wesleymontaigne.com/OOP/oprhanage/fotos/bg.png' };
 const [sessionId,setSesstionId]=React.useState(route.params.response.sessionid);
 const [response,setResponse]=React.useState(route.params)
 const [country, setCountry] =React.useState(route.params.response.country)
-
+const [usertype,setUserType]=React.useState(route.params.response.usertype)
 
 {/*Animations sets*/}
 const translateX = useRef(new Animated.Value(Dimensions.get("window").height)).current 
@@ -35,7 +35,7 @@ useEffect(()=>{
    
    {/*Get all products*/}
    useEffect(() => {
-    fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?id=${iduser}&dashboard=3&sessionid=${sessionId}&country=${country}`,{method:'GET'})
+    fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?id=${iduser}&dashboard=3&sessionid=${sessionId}&usertype=${usertype}`,{method:'GET'})
       .then((response) => response.json())
       .then((json) => setData(json))
       .catch((error) => console.error(error))

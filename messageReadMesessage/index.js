@@ -24,6 +24,8 @@ const [country, setCountry] =React.useState(route.params.response.country)
 const [productId,setProductid] =React.useState(route.params.Product.productid)
 const [donatorid,setDonatorId]=React.useState(route.params.Product.donatorid);
 const [message,setMessage]=React.useState();
+const [usertype,setUserType]=React.useState(route.params.response.usertype)
+
 
 
 {/*Animations sets*/}
@@ -55,7 +57,7 @@ useEffect(()=>{
       /*'crossDomain': 'true',*/
       var Data = {
         iduser:iduser,
-        page:'ask',
+        page:usertype==1?'answer':'ask',
         productId:productId,
         sessionid:sessionId,
         message:message,
@@ -110,7 +112,7 @@ useEffect(()=>{
     //Feacth the data
  {/*Get all products*/}
  useEffect(() => {
-  fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?id=${iduser}&dashboard=4&sessionid=${sessionId}&productid=${productId}`,{method:'GET'})
+  fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?id=${iduser}&dashboard=4&sessionid=${sessionId}&productid=${productId}`+'&usertype='+usertype,{method:'GET'})
     .then((response) => response.json())
     .then((json) => setData(json))
     .catch((error) => console.error(error))
@@ -170,7 +172,7 @@ console.log(data)
       <TouchableOpacity onPress={() => navigation.navigate('chatssss',{response:route.params.response,productId:item.id,Product:item})}>
       <View style={{flex:1}}>
       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
-      <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={0==item.sender?{uri:foto}:{uri:item.picture}} />
+      <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.picture}} />
       <Text>{item.message}</Text>
       </View>
       {/*footer*/}
