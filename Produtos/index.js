@@ -159,7 +159,7 @@ const editShowProduto=()=>{
       
       
       </View>
-      <Text style={styles.text}>{item.nome}</Text>
+      <Text style={styles.text}>{item.nomeproduto}</Text>
       </View>
           
      

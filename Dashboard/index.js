@@ -1,5 +1,5 @@
 import React, {useEffect,useState,useRef} from 'react';
-import { Text, View ,StyleSheet ,TouchableOpacity, ImageBackground,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated, ScrollView} from 'react-native';
+import { Text,BackHandler, View ,StyleSheet ,TouchableOpacity, ImageBackground,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated, ScrollView} from 'react-native';
 import Swal from 'sweetalert2';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -28,18 +28,36 @@ useEffect(()=>{
   })
 
 
+  useEffect(() => {
+    const backAction = () => {
+      Alert.alert('Hold on!', 'Are you sure you want to go back?', [
+        {
+          text: 'Cancel',
+          onPress: () => null,
+          style: 'cancel',
+        },
+        { text: 'YES', onPress: () => BackHandler.exitApp() },
+      ]);
+      return true;
+    };
+
+    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+
+    return () => backHandler.remove();
+  }, []);
 
 
-
+function getData(params){
+  fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?id=${iduser}&dashboard=1&sessionid=${sessionId}`,{method:'GET'})
+  .then((response) => response.json())
+  .then((json) => setData(json))
+  .catch((error) => console.error(error))
+  .finally(() => setLoading(false));
+  
+}
    
    {/*Get all products*/}
-   useEffect(() => {
-    fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?id=${iduser}&dashboard=1&sessionid=${sessionId}`,{method:'GET'})
-      .then((response) => response.json())
-      .then((json) => setData(json))
-      .catch((error) => console.error(error))
-      .finally(() => setLoading(false));
-       }, []);
+   useEffect(() => {getData();}, []);
   
   return (
     <SafeAreaView>
@@ -63,7 +81,7 @@ useEffect(()=>{
     <View style={{flexDirection:'row',alignContent:'space-around'}}>
    
     <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>{
-      navigation.navigate('AddAula',{response:route.params.response});
+      navigation.navigate('DashBoardUser',{response:route.params.response});
     }} >
     <FontAwesome name="dashboard" size={24} color="white" /><Text style={styles.text}> DashBoard</Text>
     
@@ -92,7 +110,7 @@ useEffect(()=>{
       <View style={{flex:0}}>
       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
       <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.img}} />
-      <Text style={styles.text}>{item.nome}</Text>
+      <Text style={styles.text}>{item.nomeproduto}</Text>
       </View>
           
       </View>

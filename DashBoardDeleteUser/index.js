@@ -6,38 +6,39 @@ import { MaskedTextInput} from "react-native-mask-text";
 import { FontAwesome5 } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
 
-function Admin({ navigation,route }) {
+function DashBoardDeleteUser({ navigation,route }) {
   
-
+  
   const [nome, setText] = React.useState('');
-  const [nomet,setNomet] =React.useState('Name');
-  const [descption,setDescription]=React.useState('');
-  const [descriptionT,setDescriptionT]=React.useState('Description');
-  const [quant,setQuant]=React.useState('');
-  const [quantT,setQuantT]=React.useState('Quant');
-  const [deliveryLabel1,setDeliverylabel1]=React.useState('I will post')
-  const [deliveryLabel2,setDeliverylabel2]=React.useState('Get with me')
-  const [deliveryLabel3,setDeliverylabel3]=React.useState('Posted or Get with me')
-  const [picturelabel,setPicutreLable]=React.useState('Picture')
+  const [senha, setSenha] = React.useState('');
+  const [sobreNome, setSobreNome] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [estado, setEstado] = React.useState('')
+  const [cidade,setCidade] =React.useState('')
   const [image, setImage] = React.useState('https://wesleymontaigne.com/orphanage/image/logo.png');
-  const [namefoto, setNomeFoto] = React.useState(1);
+  const [namefoto, setNomeFoto] = React.useState('');
   const [Type, setType] = React.useState('');
+  const [maskedValue, setMaskedValue] = useState("");
+  const [unMaskedValue, setUnmaskedValue] = useState("");
   const [language,SetLanguage]=React.useState('portugues');
-  const [delivery,setDelivery]=React.useState('');
-  const [deliveryT,setDeliveryT] =React.useState('Delivery')
+  const  [country,setCountry] =React.useState('')
   const [footer,setFooter]=React.useState('give love, clothes, toys for Childs')
   const [isLoading, setLoading] = React.useState(true);
   const [data, setData] = React.useState([]);
-  const [page,setPage] = React.useState('postitem');
-  const [usertype,setUserType]=React.useState(route.params.response.usertype)
-  const [iduser,setIdUser]=React.useState(route.params.response.userid);
-  const [sessionid,setSesstionId] =React.useState(route.params.response.sessionid)
-  const [country,setCountry] = React.useState(route.params.response.country);
+  const [page,setPage] = React.useState('singup');
+  const [emailt,setEmailt]=React.useState('Email');
+  const [nomet,setNomet] =React.useState('Name');
+  const [sobrenomet,setSobreNomet]=React.useState('Last Name');
+  const [estadot,setEstadot]= React.useState('State');
+  const [cidadet,setCidadet]=React.useState('City');
+  const [senhat,Setsenhat]=React.useState('PassWord');
+  const [countryt,setCountryt]=React.useState('Select Your country');
+  const [usertype,setUserType]=React.useState(route.params.usertype)
 
 
   //Object to pass params to SELECT object
   const placeholder = {
-    label: deliveryT,
+    label: countryt,
     value: null,
     color: '#9EA0A4',
   };
@@ -71,7 +72,7 @@ function Admin({ navigation,route }) {
 
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:'dodgerblue',alignItems:'center'}}>
+    <SafeAreaView style={{flex:1,backgroundColor:'dodgerblue',alignItems:'center',maxHeight:windowHeight}}>
      <FontAwesome5 onPress={()=>{
       
     
@@ -84,37 +85,37 @@ function Admin({ navigation,route }) {
 
      if(data.id>0){
      setFooter(data.footer)
+     setEmailt(data.email)
      setNomet(data.name)
-     setDescriptionT(data.description)
-     setQuantT(data.quant)
-     setDeliverylabel1(data.deliveryoption1)
-     setDeliverylabel2(data.deliveryoption2)
-     setDeliverylabel3(data.deliveryoption3)
-     setPicutreLable(data.picturelabel)
-     setDeliveryT(data.delivery)
-      }
+     setSobreNomet(data.lastname)
+     setEstadot(data.state)
+     setCidadet(data.city)
+     }
      if(language=='english'){
+       Setsenhat('Senha')
       SetLanguage('portugues')
       }if(language=='portugues'){
+       Setsenhat('PassWord') 
       SetLanguage('english')
-      }
+       }
    
-       
+    
+    console.log(data)
+   
     }} name="language" size={30} color="white" style={{marginLeft:windowWidth-80}}/>
     
-<View> <Button color="red" title={picturelabel} onPress={pickImage} /></View>
-   <View  style={{maxWidth:150,maxHeight:150}}>
-   {image && <Image source={{ uri: image }} style={{ width: 100, height: 100, margin:7 }} />}
+    <Button title="Profile Picture" onPress={pickImage} />
+   <View style={{maxWidth:150,maxHeight:150}}>
+   {image && <Image source={{ uri: image }} style={{ width: 40, height: 40 }} />}
    </View>
 
       
    <View style={{maxWidth:250,margin:7}}>
    <RNPickerSelect
-            onValueChange={(value) => setDelivery(value)}
+            onValueChange={(value) => setCountry(value)}
             items={[
-                { label: deliveryLabel1, value: '0' },
-                { label: deliveryLabel2, value: '1' },
-                { label: deliveryLabel3, value:'2'}
+                { label: 'USA', value: 'USA' },
+                { label: 'Brasil', value: 'Brasil' },
                 ]}
                 placeholder={placeholder}
                
@@ -122,7 +123,27 @@ function Admin({ navigation,route }) {
    </View>
 
   
-       
+        <TextInput
+          value={email}
+          onChangeText={(email) => setEmail(email)}
+          style={{
+            height: 40,
+            margin: 12,
+            borderWidth: 1,
+            borderBottomWidth: 1,
+            borderLeftWidth: 0,
+            borderRightWidth: 0,
+            borderTopWidth: 0,
+            borderColor: 'white',
+            outline: 'none',
+            color: 'white',
+            placeholderTextColor: 'white'
+          }}
+          placeholder={emailt}
+          keyboardType='email-address'
+
+        />
+
         <TextInput
           value={nome}
           onChangeText={(nome) => setText(nome)}
@@ -145,8 +166,8 @@ function Admin({ navigation,route }) {
         />
 
         <TextInput
-          value={descption}
-          onChangeText={(descption) => setDescription(descption)}
+          value={sobreNome}
+          onChangeText={(sobreNome) => setSobreNome(sobreNome)}
           style={{
             height: 40,
             margin: 12,
@@ -160,7 +181,7 @@ function Admin({ navigation,route }) {
             color: 'white',
             placeholderTextColor: 'white'
           }}
-          placeholder={descriptionT}
+          placeholder={sobrenomet}
           keyboardType='default'
         />
         
@@ -168,8 +189,8 @@ function Admin({ navigation,route }) {
 
 
         <TextInput
-          value={quant}
-          onChangeText={(quant) => setQuant(quant)}
+          value={estado}
+          onChangeText={(estado) => setEstado(estado)}
           style={{
             height: 40,
             margin: 12,
@@ -183,49 +204,77 @@ function Admin({ navigation,route }) {
             color: 'white',
             placeholderTextColor: 'white'
           }}
-          placeholder={quantT}
+          placeholder={estadot}
           keyboardType='default'
         />
        
-       
+       <TextInput
+          value={cidade}
+          onChangeText={(cidade) => setCidade(cidade)}
+          style={{
+            height: 40,
+            margin: 12,
+            borderWidth: 1,
+            borderBottomWidth: 1,
+            borderLeftWidth: 0,
+            borderRightWidth: 0,
+            borderTopWidth: 0,
+            borderColor: 'white',
+            outline: 'none',
+            color: 'white',
+            placeholderTextColor: 'white'
+          }}
+          placeholder={cidadet}
+          keyboardType='default' />
 
         
-       
+        <TextInput
+          value={senha}
+          onChangeText={(senha) => setSenha(senha)}
+          style={{
+            height: 40,
+            margin: 12,
+            borderWidth: 1,
+            borderBottomWidth: 1,
+            borderLeftWidth: 0,
+            borderRightWidth: 0,
+            borderTopWidth: 0,
+            borderColor: 'white',
+            outline: 'none',
+            color: 'white',
+            placeholderTextColor: 'white'
+          }}
+          placeholder={senhat}
+          secureTextEntry={true}
+        />
 
 
 
         <TouchableOpacity onPress={() => {/* do this */
 
-          if (!nome || !descption || !quant||!delivery||namefoto==1) {
-           
-            if(namefoto==1){
-              Swal.fire({
+          if (!nome || !senha || !email || !sobreNome || !country||!cidade||!image||!estado) {
+
+            Swal.fire({
               title: 'Erro!',
-              text: 'Choose a picture',
+              text: 'none of fields can be empty',
               icon: 'error',
-              confirmButtonText: 'ok'
-              })
-              return true
-              }
-         
-          Swal.fire({
-          title: 'Erro!',
-          text: 'none of fields can be empty',
-          icon: 'error',
-          confirmButtonText: 'ok'
-          })
-          return true;
-          } if (nome && descption&&quant&&delivery){
-            {/*verify photos*/}
-            if(namefoto==1){
+              confirmButtonText: 'Continuar'
+              
+            })
+
+            return true;
+
+          } if (nome && senha) {
+
+           if(!image){
               Swal.fire({
-              title: 'Erro!',
-              text: 'Choose a picture',
-              icon: 'error',
-              confirmButtonText: 'ok',
+                title: 'Erro!',
+                text: 'choose a photo',
+                icon: 'error',
+                confirmButtonText: 'Ok'
               })
-              return true
-              }
+              return true;
+            }
 
             {/*set loading from Swal*/}
             {Swal.showLoading()}
@@ -243,19 +292,18 @@ function Admin({ navigation,route }) {
             };
             /*'crossDomain': 'true',*/
             var Data = {
-             
+              email: email,
               nome: nome,
-              delivery: delivery,
-              descption: descption,
-              quant: quant,
+              sobreNome: sobreNome,
+              estado: estado,
+              senha: senha,
               image: image,
               namefoto: `photo.${namefoto}`,
               type: `image/${Type}`,
-              usertype:usertype,
-              requesition:'postItem',
-              iduser:iduser,
-              sessionid:sessionid,
-              country:country    
+              cidade:cidade,
+              estado:estado,
+              country:country,
+              usertype:usertype    
 
             };
 
@@ -266,17 +314,18 @@ function Admin({ navigation,route }) {
                 body: JSON.stringify(Data)
               }).then((response) => response.json())
               .then((response) => {
-              if (response.statusCode == 200) {
-              {Swal.hideLoading()}
-              navigation.replace('DashBoard', { response: route.params.response})
-              } else {
-              Swal.hideLoading()
-              Swal.fire({
-              title: 'Erro!',
-              text: 'Verifique sua internet',
-              icon: 'error',
-              confirmButtonText: 'Continuar'
-              })
+                if (response.statusCode == 200) {
+                  {Swal.hideLoading()}
+                  navigation.navigate('Orphan-age', { id: email})
+
+                } else {
+                Swal.hideLoading()
+                Swal.fire({
+                title: 'Erro!',
+                text: 'Verifique sua internet',
+                icon: 'error',
+                confirmButtonText: 'Continuar'
+                })
 
                 }
 
@@ -300,7 +349,7 @@ function Admin({ navigation,route }) {
             backgroundColor: 'white', alignItems: 'center',
             justifyContent: 'center', borderRadius: 10, width: 110,height:25}}
           >
-            <Text style={{ color: 'dodgerblue'}}>Post</Text>
+            <Text style={{ color: 'dodgerblue'}}>sign up</Text>
           </View>
         </TouchableOpacity>
        
@@ -348,4 +397,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Admin;
+export default DashBoardDeleteUser;

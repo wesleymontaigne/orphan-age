@@ -73,28 +73,50 @@ useEffect(()=>{
         borderBottomRightRadius: 0,
         borderBottomLeftRadius: 15,
         borderTopRightRadius: 15,
-        borderTopLeftRadius: 15,}}> 
-      <TouchableOpacity onPress={() => navigation.replace('chat',{response:route.params.response,productId:item.id,Product:item})}>
-      <View style={{flex:1}}>
+        borderTopLeftRadius: 15,}}>
+{/*if painel for Donator*/}
+      {usertype==1?  <TouchableOpacity onPress={() => navigation.replace('chat',{response:route.params.response,productId:item.id,Product:item})}>
+     {iduser==item.userid?'': <View style={{flex:1}}>
       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
-      <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.img}} />
-      <Text style={styles.text}>Message</Text>
+      <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.picture}} />
+      <Text style={styles.text}>{item.name}</Text>
       </View>
       {/*footer*/}
        
-       <View style={{flex:1}}>
-        <View style={{flexDirection:'row',margin:2}}>
-        <AntDesign name="gift" size={24} color="dodgerblue" /><Text style={{marginLeft:7}}>{ item.productname}</Text> 
+      <View style={{flex:1,marginLeft:40}}>
+       <View style={{flexDirection:'row',margin:2,alignContent:'center'}}>
+       <FontAwesome5 name="map-marked-alt" size={24} color="dodgerblue" /><Text style={{marginLeft:7}}>{ item.city}</Text> 
+      
+       </View> 
+    
+      </View>
+       </View>}
+      
+     {/*if painel to User*/}
+      </TouchableOpacity>:
+      
+      <TouchableOpacity onPress={() => navigation.replace('chat',{response:route.params.response,productId:item.id,Product:item})}>
+      {<View style={{flex:1}}>
+       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
+       <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.picture}} />
+       <Text style={styles.text}>{item.name}</Text>
+       </View>
+       {/*footer*/}
+        
+       <View style={{flex:1,marginLeft:40}}>
+        <View style={{flexDirection:'row',margin:2,alignContent:'center'}}>
+        <FontAwesome5 name="map-marked-alt" size={24} color="dodgerblue" /><Text style={{marginLeft:7}}>{ item.city}</Text> 
        
         </View> 
-       
-   
-
-       </View>
-       </View>
-      
      
-      </TouchableOpacity>
+       </View>
+        </View>}
+       
+      
+       </TouchableOpacity>}
+
+
+    
       </View> 
       </View>
      

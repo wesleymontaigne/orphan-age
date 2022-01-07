@@ -9,7 +9,7 @@ import RNPickerSelect from 'react-native-picker-select';
 function Editing({ navigation,route }) {
   
 
-  const [nome, setText] = React.useState(route.params.item.nome);
+  const [nome, setText] = React.useState(route.params.item.nomeproduto);
   const [nomet,setNomet] =React.useState('Name');
   const [descption,setDescription]=React.useState(route.params.item.description);
   const [descriptionT,setDescriptionT]=React.useState('Description');
@@ -23,7 +23,7 @@ function Editing({ navigation,route }) {
   const [namefoto, setNomeFoto] = React.useState(1);
   const [Type, setType] = React.useState('');
   const [language,SetLanguage]=React.useState('portugues');
-  const [delivery,setDelivery]=React.useState('');
+  const [delivery,setDelivery]=React.useState(route.params.item.postarretirar);
   const [deliveryT,setDeliveryT] =React.useState('Delivery')
   const [footer,setFooter]=React.useState('give love, clothes, toys for Childs')
   const [isLoading, setLoading] = React.useState(true);
@@ -33,7 +33,7 @@ function Editing({ navigation,route }) {
   const [iduser,setIdUser]=React.useState(route.params.response.userid);
   const [sessionid,setSesstionId] =React.useState(route.params.response.sessionid)
   const [productId,setProductId]=React.useState(route.params.item.id)
- 
+
 
   //Object to pass params to SELECT object
   const placeholder = {
@@ -111,9 +111,9 @@ function Editing({ navigation,route }) {
    <RNPickerSelect
             onValueChange={(value) => setDelivery(value)}
             items={[
-                { label: deliveryLabel1, value: 'post' },
-                { label: deliveryLabel2, value: 'get' },
-                { label: deliveryLabel3, value:'pg'}
+                { label: deliveryLabel1, value: '0' },
+                { label: deliveryLabel2, value: '1' },
+                { label: deliveryLabel3, value:'2'}
                 ]}
                 placeholder={placeholder}
                
@@ -232,7 +232,7 @@ function Editing({ navigation,route }) {
               namefoto: `photo.${namefoto}`,
               type: `image/${Type}`,
               usertype:usertype,
-              requesition:'postItem',
+              requesition:'UpdateItem',
               iduser:iduser,
               sessionid:sessionid
               ,productId:productId    

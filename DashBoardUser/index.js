@@ -100,7 +100,7 @@ const [city,setCity]=React.useState(route.params.response.city)
      <View style={{flex:1}}>
      <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
      <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.img}} />
-     <Text style={styles.text}>{item.nome}</Text>
+     <Text style={styles.text}>{item.nomeproduto}</Text>
      </View>
      {/*footer*/}
       

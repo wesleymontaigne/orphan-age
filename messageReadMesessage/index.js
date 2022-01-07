@@ -15,6 +15,7 @@ const windowHeight = Dimensions.get('window').height;
 const [isLoading, setLoading] = useState(true);
 const [data, setData] = useState([]);
 const [foto,setFoto]=React.useState(route.params.response.image);
+const [fotoDonator,setFotoDonotador]=React.useState(route.params.Product.picture?route.params.Product.picture:'')
 
 const [iduser,setIdUser]=React.useState(route.params.response.userid);
 const image = { uri: 'https://wesleymontaigne.com/OOP/oprhanage/fotos/bg.png' };
@@ -25,6 +26,8 @@ const [productId,setProductid] =React.useState(route.params.Product.productid)
 const [donatorid,setDonatorId]=React.useState(route.params.Product.donatorid);
 const [message,setMessage]=React.useState();
 const [usertype,setUserType]=React.useState(route.params.response.usertype)
+const [idUserContemplate,setIdUserContempleta]=React.useState(route.params.Product.userid)
+console.log(response)
 
 
 
@@ -61,7 +64,8 @@ useEffect(()=>{
         productId:productId,
         sessionid:sessionId,
         message:message,
-        donatorid:donatorid
+        donatorid:donatorid,
+        idUserContemplate:idUserContemplate
     
       };
     
@@ -82,6 +86,7 @@ useEffect(()=>{
               icon: 'success',
               confirmButtonText: 'nice'
               })
+              
              navigation.replace('Message',{response:route.params.response});
     
           } else {
@@ -112,14 +117,15 @@ useEffect(()=>{
     //Feacth the data
  {/*Get all products*/}
  useEffect(() => {
-  fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?id=${iduser}&dashboard=4&sessionid=${sessionId}&productid=${productId}`+'&usertype='+usertype,{method:'GET'})
+  fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?id=${iduser}&dashboard=4&sessionid=${sessionId}&productid=${productId}&idUserContemplate=${idUserContemplate}&donatorid=${donatorid}`+'&usertype='+usertype,{method:'GET'})
     .then((response) => response.json())
     .then((json) => setData(json))
     .catch((error) => console.error(error))
     .finally(() => setLoading(false));
      }, []);
 } 
- 
+
+
  getPostMessages();
 console.log(data)
 
@@ -166,15 +172,25 @@ console.log(data)
         }} name="arrow-redo" size={32} color="white" /></View>
        
          </View>}
-       renderItem={({ item,userid }) => (
+       renderItem={({ item,iduser }) => (
       <View style={{alignContent:'center',flex:1,alignItems:'center'}}>
-      {productId==item.productid?<View style={0==item.sender?styles.right:styles.left}> 
+      {productId==item.productid?<View style={item.userid==item.sender?styles.right:styles.left}> 
       <TouchableOpacity onPress={() => navigation.navigate('chatssss',{response:route.params.response,productId:item.id,Product:item})}>
       <View style={{flex:1}}>
-      <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
-      <Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.picture}} />
+        {/*paniel from donator*/}
+        {usertype==1? <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
+      {item.userid==item.sender?<Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.picture}} />
+      :<Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:foto}} />
+    } 
       <Text>{item.message}</Text>
-      </View>
+      </View>:
+       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
+       {item.userid==item.sender?<Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.picture}} />
+       :<Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={item.sender==iduser?{uri:foto}:{uri:fotoDonator}} />
+     } 
+       <Text>{item.message}</Text>
+       </View>}
+     
       {/*footer*/}
        
       </View>

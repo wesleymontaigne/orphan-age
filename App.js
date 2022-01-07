@@ -19,13 +19,15 @@ import PedirProduto from './PedirProduto';
 import helpers from './myFunctios';
 import {func1,func2,func3} from './myFunctios';
 import myMenssages from './messager';
-import messageReadMessage from './messageReadMesessage'
+import messageReadMessage from './messageReadMesessage';
+import DashBoardDeleteUser from './DashBoardDeleteUser';
 
 
 
 function HomeScreen({ navigation,route }) {
   helpers.helper1();
   func1();
+  //disable bakcButton
   disableBrowserBackButton();
   const [nome, setText] = React.useState('');
   const [senha,setSenha] = React.useState('');
@@ -282,6 +284,7 @@ function App() {
 <Stack.Screen name="solicitation" component={PedirProduto} />
 <Stack.Screen name="Message" component={myMenssages} />
 <Stack.Screen name="chat" component={messageReadMessage} />
+<Stack.Screen name="DashBoardUser" component={DashBoardDeleteUser} />
 </Stack.Navigator>
 </NavigationContainer>
   );
