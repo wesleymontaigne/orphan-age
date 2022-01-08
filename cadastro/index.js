@@ -34,13 +34,48 @@ function Admin({ navigation,route }) {
   const [senhat,Setsenhat]=React.useState('PassWord');
   const [countryt,setCountryt]=React.useState('Select Your country');
   const [usertype,setUserType]=React.useState(route.params.usertype)
+  const [dataSource,setDataSource]=React.useState([]);
+  const [dataSource1,setDataSource1]=React.useState([]);
 
+
+  //create objetc to  the "SELECT"
+  //prevent rerender
+  if(dataSource1.length<1){
+  dataSource.map((item)=>(
+  dataSource1.push({'label':item.name}),
+  dataSource1.push({'value':item.name})    
+  ))
+        
+    
+  }
 
   //Object to pass params to SELECT object
   const placeholder = {
     label: countryt,
     value: null,
     color: '#9EA0A4',
+  };
+  
+
+  //get All country's
+  useEffect(() => getData(), []);
+
+  const getData = () => {
+  setLoading(true);
+  //Service to get the data from the server to render
+  fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?country=yes`)
+  //Sending the currect offset with get request
+  .then((response) => response.json())
+  .then((responseJson) => {
+  //Successful response from the API Call
+ // setOffset(offset + 1);
+  //After the response increasing the offset for the next API call.
+  setDataSource(responseJson);
+  setLoading(false);
+  })
+  .catch((error) => {
+   console.log(error)
+      });
   };
 
 
@@ -57,7 +92,7 @@ function Admin({ navigation,route }) {
       quality: 1,
     });
 
-    console.log(result);
+    
 
     if (!result.cancelled) {
       // extract the filetype
@@ -68,7 +103,6 @@ function Admin({ navigation,route }) {
   };
 
    
-
 
 
   return (
@@ -100,8 +134,9 @@ function Admin({ navigation,route }) {
        }
    
     
-    console.log(data)
-   
+    
+    
+
     }} name="language" size={30} color="white" style={{marginLeft:windowWidth-80}}/>
     
     <Button title="Profile Picture" onPress={pickImage} />
@@ -112,18 +147,13 @@ function Admin({ navigation,route }) {
       
    <View style={{maxWidth:250,margin:7}}>
    <RNPickerSelect
-            onValueChange={(value) => setCountry(value)}
-            items={[
-                { label: 'USA', value: 'USA' },
-                { label: 'Brasil', value: 'Brasil' },
-                ]}
-                placeholder={placeholder}
-               
-        />
+   onValueChange={(value) => setCountry(value)}
+   items={dataSource1}
+   placeholder={placeholder}
+   />
    </View>
 
-  
-        <TextInput
+           <TextInput
           value={email}
           onChangeText={(email) => setEmail(email)}
           style={{

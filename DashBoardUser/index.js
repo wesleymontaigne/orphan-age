@@ -143,7 +143,7 @@ const [city,setCity]=React.useState(route.params.response.city)
     <View style={{flexDirection:'row',alignContent:'space-around'}}>
    
     <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>{
-      navigation.navigate('AddAula',{response:route.params.response});
+       navigation.navigate('DashBoardUser',{response:route.params.response});
     }} >
     <FontAwesome name="dashboard" size={24} color="white" /><Text style={styles.text}> DashBoard</Text>
     

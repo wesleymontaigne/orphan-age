@@ -1,5 +1,5 @@
 import React, {useEffect,useState,useRef} from 'react';
-import { Text,BackHandler, View ,StyleSheet ,TouchableOpacity, ImageBackground,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated, ScrollView} from 'react-native';
+import { Text, View ,StyleSheet ,TouchableOpacity, ImageBackground,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated, ScrollView} from 'react-native';
 import Swal from 'sweetalert2';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -28,23 +28,7 @@ useEffect(()=>{
   })
 
 
-  useEffect(() => {
-    const backAction = () => {
-      Alert.alert('Hold on!', 'Are you sure you want to go back?', [
-        {
-          text: 'Cancel',
-          onPress: () => null,
-          style: 'cancel',
-        },
-        { text: 'YES', onPress: () => BackHandler.exitApp() },
-      ]);
-      return true;
-    };
-
-    const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
-
-    return () => backHandler.remove();
-  }, []);
+  
 
 
 function getData(params){
@@ -53,8 +37,7 @@ function getData(params){
   .then((json) => setData(json))
   .catch((error) => console.error(error))
   .finally(() => setLoading(false));
-  
-}
+  }
    
    {/*Get all products*/}
    useEffect(() => {getData();}, []);
