@@ -19,12 +19,15 @@ import PedirProduto from './PedirProduto';
 import myMenssages from './messager';
 import messageReadMessage from './messageReadMesessage';
 import DashBoardDeleteUser from './DashBoardDeleteUser';
+import * as serviceWorkerRegistration from "./src/serviceWorkerRegistration";
 
 
 
 function HomeScreen({ navigation,route }) {
   //disable bakcButton
   disableBrowserBackButton();
+  //PWA
+  serviceWorkerRegistration.register();
   const [nome, setText] = React.useState('');
   const [senha,setSenha] = React.useState('');
   const  windowWidth = Dimensions.get('window').width;
@@ -86,6 +89,7 @@ function HomeScreen({ navigation,route }) {
   <View>
   <TouchableOpacity>
   <Ionicons onPress={()=>{navigation.navigate('pre')}} name="ios-person-add" size={48} color="white" />
+  <Text style={{color:'white'}}>Add</Text>
   </TouchableOpacity>
   </View>
       
@@ -240,8 +244,8 @@ function App() {
 
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName="Orphan-age">
-    <Stack.Screen name="Orphan-age" component={HomeScreen}
+    <Stack.Navigator initialRouteName="From-the-heart">
+    <Stack.Screen name="From-the-heart" component={HomeScreen}
     
   
     />

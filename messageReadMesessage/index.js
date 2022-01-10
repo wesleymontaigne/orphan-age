@@ -26,9 +26,6 @@ const [donatorid,setDonatorId]=React.useState(route.params.Product.donatorid);
 const [message,setMessage]=React.useState();
 const [usertype,setUserType]=React.useState(route.params.response.usertype)
 const [idUserContemplate,setIdUserContempleta]=React.useState(route.params.Product.userid)
-console.log(response)
-
-
 
 {/*Animations sets*/}
 const [listItems, setListItems] = useState(data);
@@ -42,11 +39,9 @@ useEffect(()=>{
 
 
   const sendMessage =()=>{
-
-
-       {/*set loading from Swal*/}
-       {Swal.showLoading()}
-    
+  {/*set loading from Swal*/}
+  {Swal.showLoading()}
+   
       var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/indexfotos.php';
       var headers = {
         'Accept': 'application/json',
