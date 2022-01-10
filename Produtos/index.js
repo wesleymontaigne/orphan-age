@@ -73,7 +73,7 @@ useEffect(()=>{
           icon: 'success',
           confirmButtonText: 'nice'
           })
-          navigation.replace('DashBoard',{response:route.params.response});
+          navigation.replace('Cadastro');
 
       } else {
       Swal.hideLoading()

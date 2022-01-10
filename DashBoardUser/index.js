@@ -139,7 +139,6 @@ const [city,setCity]=React.useState(route.params.response.city)
     <Image style={{width:125,height:125,borderRadius:25}} source={{uri:foto}} />   
     <View style={{marginLeft:7,}}>
     <Text style={styles.text}>{route.params.response.nome}</Text> 
-    <Text style={styles.text}>Recived: 0</Text>
     <View style={{flexDirection:'row',alignContent:'space-around'}}>
    
     <TouchableOpacity style={{flexDirection:'row'}} onPress={()=>{

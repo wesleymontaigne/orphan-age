@@ -16,7 +16,6 @@ const [isLoading, setLoading] = useState(true);
 const [data, setData] = useState([]);
 const [foto,setFoto]=React.useState(route.params.response.image);
 const [fotoDonator,setFotoDonotador]=React.useState(route.params.Product.picture?route.params.Product.picture:'')
-
 const [iduser,setIdUser]=React.useState(route.params.response.userid);
 const image = { uri: 'https://wesleymontaigne.com/OOP/oprhanage/fotos/bg.png' };
 const [sessionId,setSesstionId]=React.useState(route.params.response.sessionid);
@@ -183,13 +182,21 @@ console.log(data)
       :<Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:foto}} />
     } 
       <Text>{item.message}</Text>
+      {/*painel com template*/}
       </View>:
-       <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
+      <View style={{flexDirection:'row',marginLeft:7,alignItems:'center'}}>
        {item.userid==item.sender?<Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={{uri:item.picture}} />
        :<Image  style={{width:60,height:60,resizeMode:'contain',borderRadius:50,margin:7,}} source={item.sender==iduser?{uri:foto}:{uri:fotoDonator}} />
-     } 
-       <Text>{item.message}</Text>
-       </View>}
+     } <Text>{item.message}</Text>
+      </View>}
+      {/*start footer*/}
+     {item.sender==item.donatorid&&usertype==1?<View style={{marginLeft:30,marginBottom:7}}>
+       <TouchableOpacity>
+       <FontAwesome5 name="hand-holding-heart" size={24} color="dodgerblue" />
+       </TouchableOpacity>
+     
+     </View>:''} 
+     
      
       {/*footer*/}
        

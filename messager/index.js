@@ -1,10 +1,10 @@
 import React, {useEffect,useState,useRef} from 'react';
 import { Text, View ,StyleSheet ,TouchableOpacity, ImageBackground,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated, ScrollView} from 'react-native';
 import Swal from 'sweetalert2';
-import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
+
+
 
 
 function messageReadMessage({ navigation,route }){
@@ -86,9 +86,13 @@ useEffect(()=>{
       <View style={{flex:1,marginLeft:40}}>
        <View style={{flexDirection:'row',margin:2,alignContent:'center'}}>
        <FontAwesome5 name="map-marked-alt" size={24} color="dodgerblue" /><Text style={{marginLeft:7}}>{ item.city}</Text> 
-      
        </View> 
     
+       <View style={{flexDirection:'row',margin:2,alignContent:'center'}}>
+       <MaterialCommunityIcons name="gift" size={24} color="dodgerblue" /><Text style={{marginLeft:7}}>{ item.nomeproduto}</Text> 
+       </View> 
+
+      
       </View>
        </View>}
       
@@ -106,12 +110,14 @@ useEffect(()=>{
        <View style={{flex:1,marginLeft:40}}>
         <View style={{flexDirection:'row',margin:2,alignContent:'center'}}>
         <FontAwesome5 name="map-marked-alt" size={24} color="dodgerblue" /><Text style={{marginLeft:7}}>{ item.city}</Text> 
-       
         </View> 
      
+        <View style={{flexDirection:'row',margin:2,alignContent:'center'}}>
+       <MaterialCommunityIcons name="gift" size={24} color="dodgerblue" /><Text style={{marginLeft:7}}>{ item.nomeproduto}</Text> 
+       </View> 
        </View>
         </View>}
-       
+        
       
        </TouchableOpacity>}
 

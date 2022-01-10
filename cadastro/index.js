@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TextInput, StyleSheet,TouchableOpacity, Dimensions, Image, SafeAreaView, Button } from 'react-native';
+import { Text, CheckBox,View, TextInput, StyleSheet,TouchableOpacity, Dimensions, Image, SafeAreaView, Button } from 'react-native';
 import Swal from 'sweetalert2';
 import * as ImagePicker from 'expo-image-picker';
-import { MaskedTextInput} from "react-native-mask-text";
 import { FontAwesome5 } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
 
+
 function Admin({ navigation,route }) {
   
-  
+  const [isSelected, setSelection] = useState(false);
   const [nome, setText] = React.useState('');
   const [senha, setSenha] = React.useState('');
   const [sobreNome, setSobreNome] = React.useState('');
@@ -106,7 +106,8 @@ function Admin({ navigation,route }) {
 
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:'dodgerblue',alignItems:'center',maxHeight:windowHeight}}>
+    <SafeAreaView >
+    <View style={{flex:1,backgroundColor:'dodgerblue',alignItems:'center'}}>
      <FontAwesome5 onPress={()=>{
       
     
@@ -278,11 +279,18 @@ function Admin({ navigation,route }) {
           secureTextEntry={true}
         />
 
-
+<View style={styles.checkboxContainer}>
+        <CheckBox
+          value={isSelected}
+          onValueChange={setSelection}
+          style={styles.checkbox}
+        />
+        <Text style={styles.label}>Accept All <a href='https://wesleymontaigne.com/politica'>Terms?</a> {isSelected ? "👍" : "👎"}</Text>
+      </View>
 
         <TouchableOpacity onPress={() => {/* do this */
 
-          if (!nome || !senha || !email || !sobreNome || !country||!cidade||!image||!estado) {
+          if (!nome || !senha || !email || !sobreNome || !country||!cidade||!image||!estado||!isSelected ){
 
             Swal.fire({
               title: 'Erro!',
@@ -375,6 +383,11 @@ function Admin({ navigation,route }) {
 
 
         }}>
+
+
+     
+     
+  
           <View style={{
             backgroundColor: 'white', alignItems: 'center',
             justifyContent: 'center', borderRadius: 10, width: 110,height:25}}
@@ -386,7 +399,7 @@ function Admin({ navigation,route }) {
         <View>
           <Text style={{color:'white',marginTop:windowHeight-450}}>{footer}</Text>
        </View>
-       
+       </View>
     </SafeAreaView>
   );
 }
@@ -421,6 +434,17 @@ const styles = StyleSheet.create({
   },
   selectedOptionTextStyle: {
     color: '#ffffff',
+  },
+  checkboxContainer: {
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+  checkbox: {
+    alignSelf: "center",
+  },
+  label: {
+    margin: 8,
+    color:'white'
   },
 
 

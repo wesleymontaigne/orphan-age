@@ -16,8 +16,6 @@ import Produtos from './Produtos';
 import ProdutosEditar from './ProdutosEditar';
 import DashBoradUser from './DashBoardUser';
 import PedirProduto from './PedirProduto';
-import helpers from './myFunctios';
-import {func1,func2,func3} from './myFunctios';
 import myMenssages from './messager';
 import messageReadMessage from './messageReadMesessage';
 import DashBoardDeleteUser from './DashBoardDeleteUser';
@@ -25,8 +23,6 @@ import DashBoardDeleteUser from './DashBoardDeleteUser';
 
 
 function HomeScreen({ navigation,route }) {
-  helpers.helper1();
-  func1();
   //disable bakcButton
   disableBrowserBackButton();
   const [nome, setText] = React.useState('');
@@ -221,7 +217,7 @@ justifyContent: 'center' ,borderRadius: 10,width:110 }}
 
 </TouchableOpacity>
 <TouchableOpacity style={{marginTop:14}}>
-<FontAwesome name="whatsapp" onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone=553195784143&text=Olá tudo bem com vocês?')} size={24} color="white" />
+<FontAwesome name="whatsapp" onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone=5531999073071&text=Olá tudo bem com vocês?')} size={24} color="white" />
 </TouchableOpacity>
 <Text style={{color:'white',marginTop:windowHeight-450}}>{footer}</Text>
 </ImageBackground>

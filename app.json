@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "orphan-age",
-    "slug": "orphan-age",
+    "name": "From-Heart",
+    "slug": "Donates",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -22,8 +22,11 @@
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#FFFFFF"
-      }
+        "backgroundColor": "#FFFFFF",
+        "package": "com.tafapp.fromheart",
+        "versionCode": 1
+      },
+      "package": "com.tafapp.fromheart"
     },
     "web": {
       "favicon": "./assets/favicon.png"

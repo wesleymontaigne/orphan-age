@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Text, View, TextInput, StyleSheet,TouchableOpacity, Dimensions, Image, SafeAreaView, Button } from 'react-native';
 import Swal from 'sweetalert2';
 import * as ImagePicker from 'expo-image-picker';
-import { MaskedTextInput} from "react-native-mask-text";
 import { FontAwesome5 } from '@expo/vector-icons';
-import RNPickerSelect from 'react-native-picker-select';
+import { Entypo } from '@expo/vector-icons';
 
 function DashBoardDeleteUser({ navigation,route }) {
   
@@ -15,11 +14,9 @@ function DashBoardDeleteUser({ navigation,route }) {
   const [email, setEmail] = React.useState('');
   const [estado, setEstado] = React.useState('')
   const [cidade,setCidade] =React.useState('')
-  const [image, setImage] = React.useState('https://wesleymontaigne.com/orphanage/image/logo.png');
+  const [image, setImage] = React.useState(route.params.response.image);
   const [namefoto, setNomeFoto] = React.useState('');
   const [Type, setType] = React.useState('');
-  const [maskedValue, setMaskedValue] = useState("");
-  const [unMaskedValue, setUnmaskedValue] = useState("");
   const [language,SetLanguage]=React.useState('portugues');
   const  [country,setCountry] =React.useState('')
   const [footer,setFooter]=React.useState('give love, clothes, toys for Childs')
@@ -32,17 +29,11 @@ function DashBoardDeleteUser({ navigation,route }) {
   const [estadot,setEstadot]= React.useState('State');
   const [cidadet,setCidadet]=React.useState('City');
   const [senhat,Setsenhat]=React.useState('PassWord');
-  const [countryt,setCountryt]=React.useState('Select Your country');
   const [usertype,setUserType]=React.useState(route.params.usertype)
-
-
-  //Object to pass params to SELECT object
-  const placeholder = {
-    label: countryt,
-    value: null,
-    color: '#9EA0A4',
-  };
-
+  const [iduser,setIdUser]=React.useState(route.params.response.userid);
+  const [productId,setProductId] =React.useState(route.params.productId);
+  const [sessionId,setSesstionId] =React.useState(route.params.response.sessionid);
+  console.log(route.params)
 
   const windowWidth = Dimensions.get('window').width;
   const windowHeight =Dimensions.get('window').height;
@@ -57,8 +48,7 @@ function DashBoardDeleteUser({ navigation,route }) {
       quality: 1,
     });
 
-    console.log(result);
-
+  
     if (!result.cancelled) {
       // extract the filetype
       setType(result.uri.substring(result.uri.lastIndexOf(".") + 1));
@@ -68,7 +58,82 @@ function DashBoardDeleteUser({ navigation,route }) {
   };
 
    
+  const deleteFunction =()=>{
 
+    // ask for delete
+        Swal.fire({
+          title: 'Are you sure?',
+          text: "You won't be able to revert this!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            {/*set loading from Swal*/}
+      {Swal.showLoading()}
+    
+      var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/';
+      var headers = {
+        'Accept': 'application/json',
+        'Access-Control-Allow-Methods': 'DELETE',
+         };
+      /*'crossDomain': 'true',*/
+      var Data = {
+        iduser:iduser,
+        page:'deleteUser',
+        productId:productId,
+        sessionid:sessionId,
+        image:image,
+        image: image,
+        namefoto: `photo.${namefoto}`,
+        type: `image/${Type}`,
+    
+      };
+    
+      fetch(validatinoApi,
+        {
+          method: 'DELETE',
+          headers: headers,
+          body: JSON.stringify(Data)
+        }).then((response) => response.json())
+        .then((response) => {
+        if (response.statusCode == 200) {
+        {Swal.hideLoading()}            
+        Swal.fire({
+        title: 'success!',
+        text: 'Deleted',
+        icon: 'success',
+        confirmButtonText: 'nice'
+        })
+        navigation.replace('pre');
+    
+        } else {
+        Swal.hideLoading()
+        Swal.fire({
+        title: 'Erro!',
+        text: 'Verifique sua internet',
+        icon: 'error',
+        confirmButtonText: 'Continuar'
+        })
+        }
+        })
+        .catch((error) => {
+          alert(error);
+        });
+    
+           
+    
+            
+          }
+        })
+    
+    
+    
+    
+     
+        }//end
 
 
   return (
@@ -92,16 +157,14 @@ function DashBoardDeleteUser({ navigation,route }) {
      setCidadet(data.city)
      }
      if(language=='english'){
-       Setsenhat('Senha')
-      SetLanguage('portugues')
-      }if(language=='portugues'){
-       Setsenhat('PassWord') 
-      SetLanguage('english')
-       }
+     Setsenhat('Senha')
+     SetLanguage('portugues')
+     }if(language=='portugues'){
+     Setsenhat('PassWord') 
+     SetLanguage('english')
+     }
    
-    
-    console.log(data)
-   
+      
     }} name="language" size={30} color="white" style={{marginLeft:windowWidth-80}}/>
     
     <Button title="Profile Picture" onPress={pickImage} />
@@ -110,19 +173,7 @@ function DashBoardDeleteUser({ navigation,route }) {
    </View>
 
       
-   <View style={{maxWidth:250,margin:7}}>
-   <RNPickerSelect
-            onValueChange={(value) => setCountry(value)}
-            items={[
-                { label: 'USA', value: 'USA' },
-                { label: 'Brasil', value: 'Brasil' },
-                ]}
-                placeholder={placeholder}
-               
-        />
-   </View>
-
-  
+    
         <TextInput
           value={email}
           onChangeText={(email) => setEmail(email)}
@@ -144,46 +195,8 @@ function DashBoardDeleteUser({ navigation,route }) {
 
         />
 
-        <TextInput
-          value={nome}
-          onChangeText={(nome) => setText(nome)}
-          style={{
-            height: 40,
-            margin: 12,
-            borderWidth: 1,
-            borderBottomWidth: 1,
-            borderLeftWidth: 0,
-            borderRightWidth: 0,
-            borderTopWidth: 0,
-            borderColor: 'white',
-            outline: 'none',
-            color: 'white',
-            placeholderTextColor: 'white'
-          }}
-          placeholder={nomet}
-          keyboardType='default'
+       
 
-        />
-
-        <TextInput
-          value={sobreNome}
-          onChangeText={(sobreNome) => setSobreNome(sobreNome)}
-          style={{
-            height: 40,
-            margin: 12,
-            borderWidth: 1,
-            borderBottomWidth: 1,
-            borderLeftWidth: 0,
-            borderRightWidth: 0,
-            borderTopWidth: 0,
-            borderColor: 'white',
-            outline: 'none',
-            color: 'white',
-            placeholderTextColor: 'white'
-          }}
-          placeholder={sobrenomet}
-          keyboardType='default'
-        />
         
         
 
@@ -252,7 +265,7 @@ function DashBoardDeleteUser({ navigation,route }) {
 
         <TouchableOpacity onPress={() => {/* do this */
 
-          if (!nome || !senha || !email || !sobreNome || !country||!cidade||!image||!estado) {
+          if (!senha || !email ||!cidade||!image||!estado) {
 
             Swal.fire({
               title: 'Erro!',
@@ -283,18 +296,12 @@ function DashBoardDeleteUser({ navigation,route }) {
             var headers = {
               'Accept': 'application/json',
               "Content-Type": "multipart/form-data",
-              'Access-Control-Allow-Methods': 'POST',
-              'Access-Control-Allow-Origin': '*',
-              'crossDomain': 'true',
-              'Host': 'https://wesleymontaigne.com/OOP/',
-              'Origin': 'https://wesleymontaigne.com',
-
+              'Access-Control-Allow-Methods': 'UPDATE',
+             
             };
             /*'crossDomain': 'true',*/
             var Data = {
               email: email,
-              nome: nome,
-              sobreNome: sobreNome,
               estado: estado,
               senha: senha,
               image: image,
@@ -302,14 +309,13 @@ function DashBoardDeleteUser({ navigation,route }) {
               type: `image/${Type}`,
               cidade:cidade,
               estado:estado,
-              country:country,
               usertype:usertype    
 
             };
 
             fetch(validatinoApi,
               {
-                method: 'POST',
+                method: 'UPDATE',
                 headers: headers,
                 body: JSON.stringify(Data)
               }).then((response) => response.json())
@@ -349,9 +355,16 @@ function DashBoardDeleteUser({ navigation,route }) {
             backgroundColor: 'white', alignItems: 'center',
             justifyContent: 'center', borderRadius: 10, width: 110,height:25}}
           >
-            <Text style={{ color: 'dodgerblue'}}>sign up</Text>
+            <Text style={{ color: 'dodgerblue'}}>Up Date</Text>
           </View>
         </TouchableOpacity>
+
+       <TouchableOpacity>
+       <Entypo name="trash" style={{margin:7}} size={40} color="white" onPress={()=>{
+       deleteFunction();
+       }} />
+       </TouchableOpacity>
+       <Text style={{color:'white'}}>Delete</Text>
        
         <View>
           <Text style={{color:'white',marginTop:windowHeight-450}}>{footer}</Text>
