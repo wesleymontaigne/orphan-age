@@ -1,10 +1,7 @@
 import React, {useEffect,useState,useRef} from 'react';
-import { Text, View ,StyleSheet ,TouchableOpacity, ImageBackground,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated, ScrollView} from 'react-native';
+import { Text, View ,StyleSheet,TouchableOpacity, ImageBackground,Image,Dimensions,SafeAreaView,ActivityIndicator,FlatList,Animated, ScrollView} from 'react-native';
 import Swal from 'sweetalert2';
-import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import { AntDesign } from '@expo/vector-icons';
 import { TextInput } from 'react-native-paper';
 import { Ionicons } from '@expo/vector-icons';
 
@@ -26,6 +23,10 @@ const [donatorid,setDonatorId]=React.useState(route.params.Product.donatorid);
 const [message,setMessage]=React.useState();
 const [usertype,setUserType]=React.useState(route.params.response.usertype)
 const [idUserContemplate,setIdUserContempleta]=React.useState(route.params.Product.userid)
+const [pushid,setPushid]=React.useState('');
+const [email,setEmail]=React.useState(route.params.response.email)
+const [name,setName]=React.useState(route.params.response.nome);
+
 
 {/*Animations sets*/}
 const [listItems, setListItems] = useState(data);
@@ -34,14 +35,17 @@ useEffect(()=>{
   Animated.timing(translateX,{toValue:0,duration:2000}).start();
   })
 
+ 
 
-  //send Message
+  //Get pushid
+  
+  
 
-
+  //send menssage
   const sendMessage =()=>{
   {/*set loading from Swal*/}
   {Swal.showLoading()}
-   
+ 
       var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/indexfotos.php';
       var headers = {
         'Accept': 'application/json',
@@ -59,8 +63,10 @@ useEffect(()=>{
         sessionid:sessionId,
         message:message,
         donatorid:donatorid,
-        idUserContemplate:idUserContemplate
-    
+        idUserContemplate:idUserContemplate,
+        email:email,
+        nome:name
+     
       };
     
       fetch(validatinoApi,
@@ -121,7 +127,7 @@ useEffect(()=>{
 
 
  getPostMessages();
-console.log(data)
+
 
 
    

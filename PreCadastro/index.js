@@ -9,14 +9,14 @@ const windowWidth = Dimensions.get('window').width;
 
 
 function pre({ navigation }) {
-const [donate,setDonate]=React.useState('Donate'); 
-const [receive, setReceive]=React.useState('Receive')
+const [donate,setDonate]=React.useState('Donor'); 
+const [receive, setReceive]=React.useState('Receiver')
 const [language,setLanguage]=React.useState('portugues')
 const [isLoading, setLoading] = React.useState(true);
 const [data, setData] = React.useState([]);
 
 function getData(){
-fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?language=${language}`,{method:'GET'})
+fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?language=${language}&page=pre`,{method:'GET'})
 .then((response) => response.json())
 .then((json) => setData(json))
 .catch((error) => console.error(error))

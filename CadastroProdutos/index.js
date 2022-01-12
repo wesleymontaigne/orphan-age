@@ -112,9 +112,9 @@ function Admin({ navigation,route }) {
    <RNPickerSelect
             onValueChange={(value) => setDelivery(value)}
             items={[
-                { label: deliveryLabel1, value: '0' },
-                { label: deliveryLabel2, value: '1' },
-                { label: deliveryLabel3, value:'2'}
+                { label: deliveryLabel1, value: deliveryLabel1 },
+                { label: deliveryLabel2, value: deliveryLabel2 },
+                { label: deliveryLabel3, value: deliveryLabel3}
                 ]}
                 placeholder={placeholder}
                

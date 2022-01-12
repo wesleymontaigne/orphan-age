@@ -20,6 +20,7 @@ import myMenssages from './messager';
 import messageReadMessage from './messageReadMesessage';
 import DashBoardDeleteUser from './DashBoardDeleteUser';
 import * as serviceWorkerRegistration from "./src/serviceWorkerRegistration";
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
@@ -40,14 +41,28 @@ function HomeScreen({ navigation,route }) {
   const [data, setData] = React.useState([]);
   const [page,setPage] = React.useState('login');
   const [email,setEmail]=React.useState('');
-   
+  const [alertId,setalertId]=React.useState('');
+     
 
   useEffect(()=>{
   if(route.params){
-    setText(route.params.id) 
-  }
-  
-  })
+    setText(route.params.id)}})
+
+
+    const getData2 = async () => {
+      try {
+          const value = await AsyncStorage.getItem('pushid')
+          if(value !== null) {
+          // value previously stored
+           setPushid(value)
+           }
+      } catch(e) {
+        // error reading value
+        alert(e)
+      }
+    }
+    
+    getData2();
 
   
 
@@ -87,8 +102,8 @@ function HomeScreen({ navigation,route }) {
     </View>
    <ImageBackground source={require('./assets/rainbow.png')} resizeMode="stretch" style={{flex:1,justifyContent:'center',alignItems:'center'}}>
   <View>
-  <TouchableOpacity>
-  <Ionicons onPress={()=>{navigation.navigate('pre')}} name="ios-person-add" size={48} color="white" />
+  <TouchableOpacity style={{flex:1,alignContent:'center',alignItems:'center'}} onPress={()=>{navigation.navigate('pre')}}> 
+  <Ionicons  name="ios-person-add" size={48} color="white" />
   <Text style={{color:'white'}}>Add</Text>
   </TouchableOpacity>
   </View>
@@ -244,7 +259,8 @@ function App() {
 
   return (
     <NavigationContainer>
-    <Stack.Navigator initialRouteName="From-the-heart">
+    <Stack.Navigator initialRouteName="From-the-heart"
+     >
     <Stack.Screen name="From-the-heart" component={HomeScreen}
     
   

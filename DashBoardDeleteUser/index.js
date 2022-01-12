@@ -8,12 +8,10 @@ import { Entypo } from '@expo/vector-icons';
 function DashBoardDeleteUser({ navigation,route }) {
   
   
-  const [nome, setText] = React.useState('');
-  const [senha, setSenha] = React.useState('');
-  const [sobreNome, setSobreNome] = React.useState('');
-  const [email, setEmail] = React.useState('');
-  const [estado, setEstado] = React.useState('')
-  const [cidade,setCidade] =React.useState('')
+   const [senha, setSenha] = React.useState('');
+  const [email, setEmail] = React.useState(route.params.response.email);
+  const [estado, setEstado] = React.useState(route.params.response.state)
+  const [cidade,setCidade] =React.useState(route.params.response.city)
   const [image, setImage] = React.useState(route.params.response.image);
   const [namefoto, setNomeFoto] = React.useState('');
   const [Type, setType] = React.useState('');
@@ -33,6 +31,8 @@ function DashBoardDeleteUser({ navigation,route }) {
   const [iduser,setIdUser]=React.useState(route.params.response.userid);
   const [productId,setProductId] =React.useState(route.params.productId);
   const [sessionId,setSesstionId] =React.useState(route.params.response.sessionid);
+  const [imageDel,setImageDel]= React.useState(route.params.response.image)
+  const [delImage,setDelImage]=React.useState(0)
   console.log(route.params)
 
   const windowWidth = Dimensions.get('window').width;
@@ -54,6 +54,7 @@ function DashBoardDeleteUser({ navigation,route }) {
       setType(result.uri.substring(result.uri.lastIndexOf(".") + 1));
       setImage(result.uri);
       setNomeFoto(result.uri)
+      setDelImage(1)
     }
   };
 
@@ -277,7 +278,7 @@ function DashBoardDeleteUser({ navigation,route }) {
 
             return true;
 
-          } if (nome && senha) {
+          } if (email && senha) {
 
            if(!image){
               Swal.fire({
@@ -309,7 +310,11 @@ function DashBoardDeleteUser({ navigation,route }) {
               type: `image/${Type}`,
               cidade:cidade,
               estado:estado,
-              usertype:usertype    
+              usertype:usertype,
+              iduser:iduser,
+              sessionid:sessionId,    
+              imageDel:imageDel,
+              delImage:delImage
 
             };
 
@@ -321,9 +326,8 @@ function DashBoardDeleteUser({ navigation,route }) {
               }).then((response) => response.json())
               .then((response) => {
                 if (response.statusCode == 200) {
-                  {Swal.hideLoading()}
-                  navigation.navigate('Orphan-age', { id: email})
-
+                {Swal.hideLoading()}
+                navigation.replace('From-the-heart')               
                 } else {
                 Swal.hideLoading()
                 Swal.fire({

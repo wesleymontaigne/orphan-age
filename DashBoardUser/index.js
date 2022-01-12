@@ -9,11 +9,14 @@ import { FontAwesome5 } from '@expo/vector-icons';
 
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 
 
 const DashBoardUser = ({navigation,route}) => {
+
+ 
 
   {/*Animations sets*/}
 const translateX = useRef(new Animated.Value(Dimensions.get("window").height)).current 
@@ -29,7 +32,6 @@ const windowHeight = Dimensions.get('window').height;
 const [data, setData] = useState([]);
 const [foto,setFoto]=React.useState(route.params.response.image);
 const [datainicio,setdatainicio]=React.useState();
-const [objetivo,setObejetivo]=React.useState();
 const [iduser,setIdUser]=React.useState(route.params.response.userid);
 const image = { uri: 'https://wesleymontaigne.com/OOP/oprhanage/fotos/bg.png' };
 const [sessionId,setSesstionId]=React.useState(route.params.response.sessionid);
@@ -37,6 +39,8 @@ const [response,setResponse]=React.useState(route.params)
 const [country, setCountry] =React.useState(route.params.response.country)
 const [state,setState]=React.useState(route.params.response.state)
 const [city,setCity]=React.useState(route.params.response.city)
+
+
 
 //Object to pass params to SELECT object
 

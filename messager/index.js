@@ -22,6 +22,7 @@ const [response,setResponse]=React.useState(route.params)
 const [country, setCountry] =React.useState(route.params.response.country)
 const [usertype,setUserType]=React.useState(route.params.response.usertype)
 
+
 {/*Animations sets*/}
 const translateX = useRef(new Animated.Value(Dimensions.get("window").height)).current 
 useEffect(()=>{
