@@ -20,7 +20,7 @@ import myMenssages from './messager';
 import messageReadMessage from './messageReadMesessage';
 import DashBoardDeleteUser from './DashBoardDeleteUser';
 import * as serviceWorkerRegistration from "./src/serviceWorkerRegistration";
-import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 
 
@@ -41,28 +41,15 @@ function HomeScreen({ navigation,route }) {
   const [data, setData] = React.useState([]);
   const [page,setPage] = React.useState('login');
   const [email,setEmail]=React.useState('');
-  const [alertId,setalertId]=React.useState('');
+ 
      
 
   useEffect(()=>{
   if(route.params){
     setText(route.params.id)}})
 
-
-    const getData2 = async () => {
-      try {
-          const value = await AsyncStorage.getItem('pushid')
-          if(value !== null) {
-          // value previously stored
-           setPushid(value)
-           }
-      } catch(e) {
-        // error reading value
-        alert(e)
-      }
-    }
-    
-    getData2();
+  
+   
 
   
 

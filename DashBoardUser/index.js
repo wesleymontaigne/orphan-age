@@ -39,6 +39,7 @@ const [response,setResponse]=React.useState(route.params)
 const [country, setCountry] =React.useState(route.params.response.country)
 const [state,setState]=React.useState(route.params.response.state)
 const [city,setCity]=React.useState(route.params.response.city)
+const [pushid,setPushid]=React.useState('');
 
 
 
@@ -71,6 +72,75 @@ const [city,setCity]=React.useState(route.params.response.city)
         console.error(error);
       });
   };
+
+
+   //set time to execute get pushid
+   useState(()=>{
+    setTimeout(function(){
+      getData2();
+      }, 12000);
+
+   },[])
+  //Get PushID
+  const getData2 = async () => {
+  try {
+  const value = await AsyncStorage.getItem('pushid')
+  if(value !== null) {
+  // value previously stored
+  setPushid(value)
+  var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/';
+  var headers = {
+  'Accept': 'application/json',
+  "Content-Type": "multipart/form-data",
+  'Access-Control-Allow-Methods': 'POST',
+  'Access-Control-Allow-Origin': '*',
+  'crossDomain': 'true',
+  'Host': 'https://wesleymontaigne.com/OOP/',
+  'Origin': 'https://wesleymontaigne.com',
+  };
+  /*'crossDomain': 'true',*/
+  var Data = {
+  iduser:iduser,
+  sessionid:sessionId,
+  pushid:pushid
+  };
+
+  fetch(validatinoApi,
+  {
+  method: 'POST',
+  headers: headers,
+  body: JSON.stringify(Data)
+  }).then((response) => response.json())
+  .then((response) => {
+  if (response.statusCode == 200) {
+  } else {
+  }
+  })
+  .catch((error) => {
+  alert(error);
+  }); 
+
+
+         }
+    } catch(e) {
+      // error reading value
+      alert(e)
+    }
+  }
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   const renderFooter = () => {
     return (
