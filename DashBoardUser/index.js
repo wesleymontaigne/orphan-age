@@ -87,7 +87,7 @@ const [pushid,setPushid]=React.useState('');
   const value = await AsyncStorage.getItem('pushid')
   if(value !== null) {
   // value previously stored
-  setPushid(value)
+ 
   var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/';
   var headers = {
   'Accept': 'application/json',
@@ -102,9 +102,8 @@ const [pushid,setPushid]=React.useState('');
   var Data = {
   iduser:iduser,
   sessionid:sessionId,
-  pushid:pushid
+  pushid:value
   };
-
   fetch(validatinoApi,
   {
   method: 'POST',

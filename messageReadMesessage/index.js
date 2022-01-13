@@ -26,7 +26,7 @@ const [idUserContemplate,setIdUserContempleta]=React.useState(route.params.Produ
 const [pushid,setPushid]=React.useState('');
 const [email,setEmail]=React.useState(route.params.response.email)
 const [name,setName]=React.useState(route.params.response.nome);
-
+const [donate,setDonate]=React.useState('');
 
 {/*Animations sets*/}
 const [listItems, setListItems] = useState(data);
@@ -65,7 +65,8 @@ useEffect(()=>{
         donatorid:donatorid,
         idUserContemplate:idUserContemplate,
         email:email,
-        nome:name
+        nome:name,
+        donate:donate
      
       };
     
@@ -111,6 +112,78 @@ useEffect(()=>{
         }//end
 
   
+
+        const donateFunction =()=>{
+          {/*set loading from Swal*/}
+          {Swal.showLoading()}
+         
+              var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/donate/index.php';
+              var headers = {
+                'Accept': 'application/json',
+                'Access-Control-Allow-Methods': 'POST',
+                'crossDomain': 'true',
+                'Host': 'https://wesleymontaigne.com/OOP/',
+                'Origin': 'https://wesleymontaigne.com',
+            
+              };
+              /*'crossDomain': 'true',*/
+              var Data = {
+                iduser:iduser,
+                page:usertype==1?'donate':'',
+                productId:productId,
+                sessionid:sessionId,
+                message:message,
+                donatorid:donatorid,
+                idUserContemplate:idUserContemplate,
+                email:email,
+                nome:name,
+                donate:donate
+             
+              };
+            
+              fetch(validatinoApi,
+                {
+                  method: 'POST',
+                  headers: headers,
+                  body: JSON.stringify(Data)
+                }).then((response) => response.json())
+                 .then((response) => {
+                  if (response.statusCode == 200) {
+                    
+                    {Swal.hideLoading()}
+                    
+                    Swal.fire({
+                      title: 'Donated!',
+                      text: 'Thanks ',
+                      icon: 'success',
+                      confirmButtonText: 'nice'
+                      })
+                      
+                     navigation.replace('Message',{response:route.params.response});
+            
+                  } else {
+                  Swal.hideLoading()
+                  Swal.fire({
+                  title: 'Erro!',
+                  text: 'Verifique sua internet',
+                  icon: 'error',
+                  confirmButtonText: 'Continuar'
+                  })
+            
+                  }
+            
+            
+                })
+                .catch((error) => {
+                  alert(error);
+                });
+               
+               
+            
+                }//end
+
+
+
 
  function getPostMessages(params) {
  
@@ -192,7 +265,21 @@ useEffect(()=>{
       </View>}
       {/*start footer*/}
      {item.sender==item.donatorid&&usertype==1?<View style={{marginLeft:30,marginBottom:7}}>
-       <TouchableOpacity>
+       <TouchableOpacity onPress={()=>{
+         Swal.fire({
+          title: 'Are you sure?',
+          text: "donate this gift!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Yes, donate!'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            donateFunction()
+          }
+        })
+       }}>
        <FontAwesome5 name="hand-holding-heart" size={24} color="dodgerblue" />
        </TouchableOpacity>
      

@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import { FontAwesome } from '@expo/vector-icons';
 import { FontAwesome5 } from '@expo/vector-icons';
 import { AntDesign } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 function Logado({ navigation,route }){
@@ -26,6 +27,75 @@ const translateX = useRef(new Animated.Value(Dimensions.get("window").height)).c
 useEffect(()=>{
   Animated.timing(translateX,{toValue:0,duration:2000}).start();
   })
+
+
+
+
+ //set time to execute get pushid
+ useState(()=>{
+  setTimeout(function(){
+    getData2();
+    }, 12000);
+
+ },[])
+//Get PushID
+const getData2 = async () => {
+try {
+const value = await AsyncStorage.getItem('pushid')
+if(value !== null) {
+// value previously stored
+
+var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/';
+var headers = {
+'Accept': 'application/json',
+"Content-Type": "multipart/form-data",
+'Access-Control-Allow-Methods': 'POST',
+'Access-Control-Allow-Origin': '*',
+'crossDomain': 'true',
+'Host': 'https://wesleymontaigne.com/OOP/',
+'Origin': 'https://wesleymontaigne.com',
+};
+/*'crossDomain': 'true',*/
+var Data = {
+iduser:iduser,
+sessionid:sessionId,
+pushid:value
+};
+fetch(validatinoApi,
+{
+method: 'POST',
+headers: headers,
+body: JSON.stringify(Data)
+}).then((response) => response.json())
+.then((response) => {
+if (response.statusCode == 200) {
+} else {
+}
+})
+.catch((error) => {
+alert(error);
+}); 
+
+
+       }
+  } catch(e) {
+    // error reading value
+    alert(e)
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
   
