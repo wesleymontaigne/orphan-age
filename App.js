@@ -41,6 +41,7 @@ function HomeScreen({ navigation,route }) {
   const [data, setData] = React.useState([]);
   const [page,setPage] = React.useState('login');
   const [email,setEmail]=React.useState('');
+  const [backgroud,setBackgraund]=React.useState('')
  
      
 
@@ -73,22 +74,12 @@ function HomeScreen({ navigation,route }) {
 
  
   return (
-  <SafeAreaView style={{flex:1,alignItems:'center',backgroundColor:'dodgerblue'}}>
-    <View style={{flexDirection:'row',alignContent:'flex-end'}}>
-    <FontAwesome5 onPress={()=>{
-    fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?language=${language}`,{method:'GET'})
-    .then((response) => response.json())
-    .then((json) => setData(json))
-    .catch((error) => console.error(error))
-    .finally(() => setLoading(false));
-    setTelefone(data.text)
-    setSenhaText(data.password)
-    setFooter(data.footer)
-   
-    }} name="language" size={30} color="white" style={{marginLeft:windowWidth-80}}/>
-    </View>
+  <SafeAreaView style={{flex:1,alignItems:'center',backgroundColor:'dodgerblue'}}>  
    <ImageBackground source={require('./assets/rainbow.png')} resizeMode="stretch" style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-  <View>
+
+   <View style={{backgroundColor:'',width:windowWidth}}>
+  
+ <View>
   <TouchableOpacity style={{flex:1,alignContent:'center',alignItems:'center'}} onPress={()=>{navigation.navigate('pre')}}> 
   <Ionicons  name="ios-person-add" size={48} color="white" />
   <Text style={{color:'white'}}>Add</Text>
@@ -96,11 +87,8 @@ function HomeScreen({ navigation,route }) {
   </View>
       
      
-    <View style={{alignItems:'center'}}
-    ><TouchableOpacity onPress={() => navigation.navigate('Admin')}>
-    </TouchableOpacity>
-    </View>
-    <KeyboardAvoidingView>
+ 
+    <KeyboardAvoidingView style={{flex:1,alignItems:'center',backgroundColor:backgroud}}>
     <TextInput
      value={nome?nome:email}
      onChangeText={(nome) => setText(nome)}
@@ -117,6 +105,7 @@ function HomeScreen({ navigation,route }) {
       placeholderTextColor:'white'}}
       placeholder={telefone}
       keyboardType='email-address'
+      
      
     />
 
@@ -136,9 +125,8 @@ function HomeScreen({ navigation,route }) {
     placeholderTextColor:'white'}}
     placeholder={senhaTexto}
     secureTextEntry={true}
+    onFocus={()=> setBackgraund('dodgerblue')}
     />
-
-</KeyboardAvoidingView>
 
 <TouchableOpacity onPress = {() => {/* do this */
 
@@ -222,10 +210,14 @@ justifyContent: 'center' ,borderRadius: 10,width:110 }}
 
 
 </TouchableOpacity>
-<TouchableOpacity style={{marginTop:14}}>
+<TouchableOpacity style={{margin:7,alignItems:'center'}} >
 <FontAwesome name="whatsapp" onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone=5531999073071&text=Olá tudo bem com vocês?')} size={24} color="white" />
+<Text style={{color:'white'}}>Support</Text>
 </TouchableOpacity>
-<Text style={{color:'white',marginTop:windowHeight-450}}>{footer}</Text>
+</KeyboardAvoidingView>
+
+</View>
+
 </ImageBackground>
 </SafeAreaView>
 );

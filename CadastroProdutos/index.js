@@ -5,6 +5,7 @@ import * as ImagePicker from 'expo-image-picker';
 import { MaskedTextInput} from "react-native-mask-text";
 import { FontAwesome5 } from '@expo/vector-icons';
 import RNPickerSelect from 'react-native-picker-select';
+import { KeyboardAvoidingView } from 'react-native-web';
 
 function Admin({ navigation,route }) {
   
@@ -71,11 +72,8 @@ function Admin({ navigation,route }) {
 
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:'dodgerblue',alignItems:'center'}}>
-     <FontAwesome5 onPress={()=>{
-      
-    
-      
+    <SafeAreaView style={{backgroundColor:'dodgerblue',alignItems:'center'}}>
+     <FontAwesome5 onPress={()=>{      
      fetch(`https://wesleymontaigne.com/OOP/oprhanage/index.php?language=${language}&page=${page}`,{method:'GET'})
     .then((response) => response.json())
     .then((json) =>  setData(json))
@@ -107,8 +105,8 @@ function Admin({ navigation,route }) {
    {image && <Image source={{ uri: image }} style={{ width: 100, height: 100, margin:7 }} />}
    </View>
 
-      
-   <View style={{maxWidth:250,margin:7}}>
+   
+   <View style={{maxWidth:300,margin:7}}>
    <RNPickerSelect
             onValueChange={(value) => setDelivery(value)}
             items={[
@@ -122,7 +120,7 @@ function Admin({ navigation,route }) {
    </View>
 
   
-       
+   <KeyboardAvoidingView styles={{flex:1,backgroundColor:'dodgerblue',alignItems:'center',justifyContent:'center'}}>
         <TextInput
           value={nome}
           onChangeText={(nome) => setText(nome)}
@@ -193,6 +191,9 @@ function Admin({ navigation,route }) {
        
 
 
+
+        
+        </KeyboardAvoidingView>
 
         <TouchableOpacity onPress={() => {/* do this */
 
@@ -295,19 +296,14 @@ function Admin({ navigation,route }) {
 
 
 
-        }}>
+        }} >
           <View style={{
             backgroundColor: 'white', alignItems: 'center',
-            justifyContent: 'center', borderRadius: 10, width: 110,height:25}}
+            justifyContent: 'center', borderRadius: 10, width: 110,height:25,margin:14}}
           >
             <Text style={{ color: 'dodgerblue'}}>Post</Text>
           </View>
-        </TouchableOpacity>
-       
-        <View>
-          <Text style={{color:'white',marginTop:windowHeight-450}}>{footer}</Text>
-       </View>
-       
+        </TouchableOpacity>     
     </SafeAreaView>
   );
 }

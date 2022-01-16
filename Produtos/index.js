@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import { AntDesign } from '@expo/vector-icons';
 import { FontAwesome } from '@expo/vector-icons';
 
-function Logado({ navigation,route }){
+function Produtos({ navigation,route }){
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const [isLoading, setLoading] = useState(true);
@@ -73,7 +73,7 @@ useEffect(()=>{
           icon: 'success',
           confirmButtonText: 'nice'
           })
-          navigation.replace('Cadastro');
+          navigation.replace('DashBoard', { response: route.params.response})
 
       } else {
       Swal.hideLoading()
@@ -197,4 +197,4 @@ const styles = StyleSheet.create({
         textShadowRadius: 25
     },
   });
-export default Logado;
+export default Produtos;

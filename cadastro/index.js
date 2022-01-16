@@ -354,7 +354,7 @@ function Admin({ navigation,route }) {
               .then((response) => {
                 if (response.statusCode == 200) {
                   {Swal.hideLoading()}
-                  navigation.navigate('Orphan-age', { id: email})
+                  navigation.navigate('From-the-heart', { id: email})
 
                 } else {
                 Swal.hideLoading()

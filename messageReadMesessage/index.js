@@ -23,10 +23,11 @@ const [donatorid,setDonatorId]=React.useState(route.params.Product.donatorid);
 const [message,setMessage]=React.useState();
 const [usertype,setUserType]=React.useState(route.params.response.usertype)
 const [idUserContemplate,setIdUserContempleta]=React.useState(route.params.Product.userid)
-const [pushid,setPushid]=React.useState('');
+const [pushid,setPushid]=React.useState(route.params.Product.messageid);
 const [email,setEmail]=React.useState(route.params.response.email)
 const [name,setName]=React.useState(route.params.response.nome);
 const [donate,setDonate]=React.useState('');
+
 
 {/*Animations sets*/}
 const [listItems, setListItems] = useState(data);
@@ -43,6 +44,7 @@ useEffect(()=>{
 
   //send menssage
   const sendMessage =()=>{
+    
   {/*set loading from Swal*/}
   {Swal.showLoading()}
  
@@ -66,7 +68,8 @@ useEffect(()=>{
         idUserContemplate:idUserContemplate,
         email:email,
         nome:name,
-        donate:donate
+        donate:donate,
+        pushid:pushid
      
       };
     
@@ -241,6 +244,7 @@ useEffect(()=>{
      
         ></TextInput>
         <View style={{position:'absolute',right:10,paddingTop:10}}> <Ionicons onPress={()=>{ 
+          
           sendMessage();
         }} name="arrow-redo" size={32} color="white" /></View>
        

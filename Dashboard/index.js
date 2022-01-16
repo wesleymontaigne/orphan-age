@@ -19,7 +19,42 @@ const [iduser,setIdUser]=React.useState(route.params.response.userid);
 const image = { uri: 'https://wesleymontaigne.com/OOP/oprhanage/fotos/bg.png' };
 const [sessionId,setSesstionId]=React.useState(route.params.response.sessionid);
 const [response,setResponse]=React.useState(route.params)
+const [pushid,setPushid]=React.useState(null)
 
+if(pushid){
+ 
+  // value previously stored
+var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/pushid/index.php';
+var headers = {
+'Accept': 'application/json',
+"Content-Type": "multipart/form-data",
+'Access-Control-Allow-Methods': 'POST',
+'Access-Control-Allow-Origin': '*',
+'crossDomain': 'true',
+'Host': 'https://wesleymontaigne.com/OOP/',
+'Origin': 'https://wesleymontaigne.com',
+};
+/*'crossDomain': 'true',*/
+var Data = {
+iduser:iduser,
+sessionid:sessionId,
+pushid:pushid
+};
+fetch(validatinoApi,
+{
+method: 'POST',
+headers: headers,
+body: JSON.stringify(Data)
+}).then((response) => response.json())
+.then((response) => {
+if (response.statusCode == 200) {
+} else {
+}
+})
+.catch((error) => {
+alert(error);
+}); 
+}
 
 {/*Animations sets*/}
 const [listItems, setListItems] = useState(data);
@@ -41,42 +76,11 @@ useEffect(()=>{
 //Get PushID
 const getData2 = async () => {
 try {
-const value = await AsyncStorage.getItem('pushid')
+const value = await AsyncStorage.getItem('pushid');
+
 if(value !== null) {
-// value previously stored
-
-var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/';
-var headers = {
-'Accept': 'application/json',
-"Content-Type": "multipart/form-data",
-'Access-Control-Allow-Methods': 'POST',
-'Access-Control-Allow-Origin': '*',
-'crossDomain': 'true',
-'Host': 'https://wesleymontaigne.com/OOP/',
-'Origin': 'https://wesleymontaigne.com',
-};
-/*'crossDomain': 'true',*/
-var Data = {
-iduser:iduser,
-sessionid:sessionId,
-pushid:value
-};
-fetch(validatinoApi,
-{
-method: 'POST',
-headers: headers,
-body: JSON.stringify(Data)
-}).then((response) => response.json())
-.then((response) => {
-if (response.statusCode == 200) {
-} else {
-}
-})
-.catch((error) => {
-alert(error);
-}); 
-
-
+  setPushid(value)
+ 
        }
   } catch(e) {
     // error reading value

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TextInput, StyleSheet,TouchableOpacity, Dimensions, Image, SafeAreaView, Button } from 'react-native';
+import { Text, View, TextInput, StyleSheet,TouchableOpacity, Dimensions, Image, SafeAreaView, Button, KeyboardAvoidingView } from 'react-native';
 import Swal from 'sweetalert2';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome5 } from '@expo/vector-icons';
@@ -27,14 +27,12 @@ function DashBoardDeleteUser({ navigation,route }) {
   const [estadot,setEstadot]= React.useState('State');
   const [cidadet,setCidadet]=React.useState('City');
   const [senhat,Setsenhat]=React.useState('PassWord');
-  const [usertype,setUserType]=React.useState(route.params.usertype)
+  const [usertype,setUserType]=React.useState(route.params.response.usertype)
   const [iduser,setIdUser]=React.useState(route.params.response.userid);
   const [productId,setProductId] =React.useState(route.params.productId);
   const [sessionId,setSesstionId] =React.useState(route.params.response.sessionid);
   const [imageDel,setImageDel]= React.useState(route.params.response.image)
   const [delImage,setDelImage]=React.useState(0)
-  console.log(route.params)
-
   const windowWidth = Dimensions.get('window').width;
   const windowHeight =Dimensions.get('window').height;
 
@@ -138,7 +136,7 @@ function DashBoardDeleteUser({ navigation,route }) {
 
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:'dodgerblue',alignItems:'center',maxHeight:windowHeight}}>
+    <SafeAreaView style={{backgroundColor:'dodgerblue',alignItems:'center'}}>
      <FontAwesome5 onPress={()=>{
       
     
@@ -174,7 +172,8 @@ function DashBoardDeleteUser({ navigation,route }) {
    </View>
 
       
-    
+    <KeyboardAvoidingView styles={{flex:1,backgroundColor:'dodgerblue',alignItems:'center',justifyContent:'center'}}>
+     
         <TextInput
           value={email}
           onChangeText={(email) => setEmail(email)}
@@ -263,6 +262,7 @@ function DashBoardDeleteUser({ navigation,route }) {
         />
 
 
+</KeyboardAvoidingView>
 
         <TouchableOpacity onPress={() => {/* do this */
 

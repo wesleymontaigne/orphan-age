@@ -25,9 +25,210 @@ element1.id="pushpush";
 document.body.appendChild(element1);
 var pushid=document.getElementById("pushpush").value
 window.localStorage.setItem('pushid', pushid);
-        }, 15000);
+        }, 8000);
   
 };
 </script>
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </body></html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<SafeAreaView style={{flex:1,backgroundColor:'dodgerblue',height:windowHeight+640}}>
+        <View style={{flex:1,backgroundColor:'dodgerblue'}}></View>
+        
+       <ImageBackground source={require('./assets/rainbow.png')} resizeMode="stretch" style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+     
+          
+         
+        <View style={{alignItems:'center'}}
+        ><TouchableOpacity onPress={() => navigation.navigate('Admin')}>
+        </TouchableOpacity>
+        </View>
+        <KeyboardAvoidingView>
+        <TextInput
+         value={nome?nome:email}
+         onChangeText={(nome) => setText(nome)}
+         style={{height: 40,
+          margin: 12,
+          borderWidth: 1,
+          borderBottomWidth: 1,
+          borderLeftWidth: 0,
+          borderRightWidth:0,
+          borderTopWidth: 0,
+          borderColor:'white',
+          outline: 'none',
+          color:'white',
+          placeholderTextColor:'white'}}
+          placeholder={telefone}
+          keyboardType='email-address'
+         
+        />
+    
+        <TextInput
+        value={senha}
+        onChangeText={(senha) => setSenha(senha)}
+        style={{height: 40,
+        margin: 12,
+        borderWidth: 1,
+        borderBottomWidth: 1,
+        borderLeftWidth: 0,
+        borderRightWidth:0,
+        borderTopWidth: 0,
+        borderColor:'white',
+        outline: 'none',
+        color:'white',
+        placeholderTextColor:'white'}}
+        placeholder={senhaTexto}
+        secureTextEntry={true}
+        />
+    
+    </KeyboardAvoidingView>
+    
+    <TouchableOpacity onPress = {() => {/* do this */
+    
+    if(!nome||!senha){
+    
+      Swal.fire({
+        title: 'Erro!',
+        text: 'Nenhum campo pode estar em branco',
+        icon: 'error',
+        confirmButtonText: 'Continuar'
+      })
+      
+    }if(nome && senha){
+    
+    var validatinoApi ='https://wesleymontaigne.com/OOP/oprhanage/';
+    var headers={
+     'Accept':'application/json',
+     'Content-Type':'application.json',
+     'Access-Control-Allow-Methods': 'GET, POST',
+     'crossDomain': 'true',
+     'Host': 'https://wesleymontaigne.com/OOP/',
+     'Origin': 'https://wesleymontaigne.com',
+     
+      };
+     /*'crossDomain': 'true',*/
+     var Data={
+      nome:nome,
+      senha:senha
+    
+     };
+    
+     fetch(validatinoApi,
+      {
+       method:'POST',
+       headers:headers,
+       body:JSON.stringify(Data)
+     }).then((response)=>response.json())
+       .then((response)=>{
+       if(response.statusCode==200){
+        if(response.usertype==1){
+        navigation.replace('DashBoard',{response})
+        }else{
+        navigation.replace('DashBoard-User',{response})
+    
+        } 
+      
+    
+        }else{
+    
+       
+      Swal.fire({
+        title: 'Erro!',
+        text: 'Usuário ou senhas errados',
+        icon: 'error',
+        confirmButtonText: 'Continuar'
+      })
+    
+        }
+       
+    
+       })
+       .catch((error)=>{
+         alert(error);
+       });
+    
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    }}>
+    <View style = {{backgroundColor: 'white', alignItems: 'center',
+    justifyContent: 'center' ,borderRadius: 10,width:110 }}
+    >
+    <Text style = {{ color: 'dodgerblue', padding:10}}>Entrar</Text>
+    </View>
+    
+    
+    </TouchableOpacity>
+    <TouchableOpacity style={{marginTop:14}}>
+    <FontAwesome name="whatsapp" onPress={() => Linking.openURL('https://api.whatsapp.com/send?phone=5531999073071&text=Olá tudo bem com vocês?')} size={24} color="white" />
+    </TouchableOpacity>
+    <Text style={{color:'white',marginTop:windowHeight-450}}>{footer}</Text>
+    </ImageBackground>
+    </SafeAreaView>

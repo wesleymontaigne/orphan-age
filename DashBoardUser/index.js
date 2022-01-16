@@ -88,7 +88,7 @@ const [pushid,setPushid]=React.useState('');
   if(value !== null) {
   // value previously stored
  
-  var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/';
+  var validatinoApi = 'https://wesleymontaigne.com/OOP/oprhanage/fotos/pushid/index.php';
   var headers = {
   'Accept': 'application/json',
   "Content-Type": "multipart/form-data",

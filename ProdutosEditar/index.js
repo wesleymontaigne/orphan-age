@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, TextInput, StyleSheet,TouchableOpacity, Dimensions, Image, SafeAreaView, Button } from 'react-native';
+import { Text, View, TextInput, StyleSheet,TouchableOpacity, Dimensions, Image, SafeAreaView, Button ,KeyboardAvoidingView} from 'react-native';
 import Swal from 'sweetalert2';
 import * as ImagePicker from 'expo-image-picker';
 import { MaskedTextInput} from "react-native-mask-text";
@@ -71,7 +71,7 @@ function Editing({ navigation,route }) {
 
 
   return (
-    <SafeAreaView style={{flex:1,backgroundColor:'dodgerblue',alignItems:'center'}}>
+    <SafeAreaView style={{backgroundColor:'dodgerblue',alignItems:'center'}}>
      <FontAwesome5 onPress={()=>{
           
       
@@ -120,7 +120,8 @@ function Editing({ navigation,route }) {
         />
    </View>
 
-  
+   <KeyboardAvoidingView styles={{flex:1,backgroundColor:'dodgerblue',alignItems:'center',justifyContent:'center'}}>
+     
        
         <TextInput
           value={nome}
@@ -189,7 +190,7 @@ function Editing({ navigation,route }) {
        
 
         
-       
+       </KeyboardAvoidingView>
 
 
 
@@ -278,16 +279,13 @@ function Editing({ navigation,route }) {
         }}>
           <View style={{
             backgroundColor: 'white', alignItems: 'center',
-            justifyContent: 'center', borderRadius: 10, width: 110,height:25}}
+            justifyContent: 'center', borderRadius: 10, width: 110,height:25,margin:14}}
           >
             <Text style={{ color: 'dodgerblue'}}>Post</Text>
           </View>
         </TouchableOpacity>
        
-        <View>
-          <Text style={{color:'white',marginTop:windowHeight-450}}>{footer}</Text>
-       </View>
-       
+             
     </SafeAreaView>
   );
 }
